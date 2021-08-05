@@ -7,6 +7,7 @@
 #include "block.h"
 
 class SBlock : public Block {
+	bool vertical;
 	public:
 		SBlock(std::vector<std::vector<Cell *>> board, int level);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;

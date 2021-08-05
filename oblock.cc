@@ -19,5 +19,4 @@ OBlock::OBlock(std::vector<std::vector<Cell *>> board, int level)
 }
 
 void OBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::cout << "oblockrotate " << direction << std::endl;
 }

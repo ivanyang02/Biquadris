@@ -25,13 +25,23 @@ void IBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	std::vector<Cell *> newCells;
 	int size = cells.size();
 	for (int i = 0; i < size; i++) {
-		cells[i]->SetType('.');
-		cells[i]->SetOwner(nullptr);
 		if (vertical) {
+			if (cornerCol + i >= 11) {
+				return;
+			}
 			newCells.push_back(board[cornerRow][cornerCol + i]);
 		} else {
 			newCells.push_back(board[cornerRow + i][cornerCol]);
 		}
+	}
+	for (int i = 0; i < newCells.size(); i++) {
+		if (newCells[i]->GetOwner() != nullptr && newCells[i]->GetOwner() != this) {
+			return;
+		}
+	}
+	for (int i = 0; i < size; i++) {
+		cells[i]->SetType('.');
+		cells[i]->SetOwner(nullptr);
 	}
 	for (int i = 0; i < newCells.size(); i++) {
 		newCells[i]->SetType('I');
