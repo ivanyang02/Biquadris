@@ -9,6 +9,7 @@
 class ZBlock : public Block {
 	bool vertical;
 	public:
+		bool vertical;
 		ZBlock(std::vector<std::vector<Cell *>> board, int level);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
