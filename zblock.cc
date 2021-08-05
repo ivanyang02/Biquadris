@@ -27,11 +27,6 @@ void ZBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	for (int i = 0; i < size; i++) {
 		cells[i]->SetType('.');
 		cells[i]->SetOwner(nullptr);
-		if (vertical) {
-			newCells.push_back(board[cornerRow][cornerCol + i]);
-		} else {
-			newCells.push_back(board[cornerRow + i][cornerCol]);
-		}
 	}
 	if (vertical) {
 		newCells.push_back(board[cornerRow+1][cornerCol]);
@@ -40,10 +35,10 @@ void ZBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 		newCells.push_back(board[cornerRow][cornerCol+2]);
 	}
 	else {
-		newCells.push_back(board[cornerRow+2][cornerCol]);
+		newCells.push_back(board[cornerRow][cornerCol]);
 		newCells.push_back(board[cornerRow+1][cornerCol]);
 		newCells.push_back(board[cornerRow+1][cornerCol+1]);
-		newCells.push_back(board[cornerRow][cornerCol+1]);
+		newCells.push_back(board[cornerRow+2][cornerCol+1]);
 	}
 	for (int i = 0; i < newCells.size(); i++) {
 		newCells[i]->SetType('Z');
