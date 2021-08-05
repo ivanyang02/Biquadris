@@ -8,6 +8,7 @@
 
 class JBlock : public Block {
 	public:
+		int position;
 		JBlock(std::vector<std::vector<Cell *>> board, int level);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
