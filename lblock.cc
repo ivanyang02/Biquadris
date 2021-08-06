@@ -37,12 +37,7 @@ void LBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 		position--;
 	}
 	position = position%4;
-	if (position == 0) {
-		newCells.push_back(board[cornerRow][cornerCol]);
-		newCells.push_back(board[cornerRow][cornerCol+1]);
-		newCells.push_back(board[cornerRow][cornerCol+2]);
-		newCells.push_back(board[cornerRow+1][cornerCol+2]);
-	} else if (position == 3) {
+	if (position == 3) {
 		newCells.push_back(board[cornerRow+2][cornerCol]);
 		newCells.push_back(board[cornerRow+2][cornerCol+1]);
 		newCells.push_back(board[cornerRow+1][cornerCol+1]);
@@ -52,11 +47,16 @@ void LBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 		newCells.push_back(board[cornerRow+1][cornerCol]);
 		newCells.push_back(board[cornerRow+1][cornerCol+1]);
 		newCells.push_back(board[cornerRow+1][cornerCol+2]);
-	} else {
+	} else if (position == 1) {
 		newCells.push_back(board[cornerRow][cornerCol]);
 		newCells.push_back(board[cornerRow+1][cornerCol]);
 		newCells.push_back(board[cornerRow+2][cornerCol]);
 		newCells.push_back(board[cornerRow][cornerCol+1]);
+	} else {
+	    newCells.push_back(board[cornerRow][cornerCol]);
+		newCells.push_back(board[cornerRow][cornerCol+1]);
+		newCells.push_back(board[cornerRow][cornerCol+2]);
+		newCells.push_back(board[cornerRow+1][cornerCol+2]);
 	}
 
 	for (int i = 0; i < newCells.size(); i++) {
