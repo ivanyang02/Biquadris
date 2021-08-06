@@ -24,7 +24,7 @@ void JBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	std::cout << "jblockrotate " << direction << std::endl;
 	std::vector<Cell *> newCells;
 	int size = cells.size();
-	if (direction == "counterclockwise") {
+	if (direction == 'l') {
 		position++;
 	}
 	else {

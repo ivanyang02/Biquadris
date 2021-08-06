@@ -23,7 +23,7 @@ void LBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	std::cout << "lblockrotate " << direction << std::endl;
 	std::vector<Cell *> newCells;
 	int size = cells.size();
-	if (direction == "counterclockwise") {
+	if (direction == 'l') {
 		position++;
 	}
 	else {
@@ -45,7 +45,7 @@ void LBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	if (position == 1) {
 		newCells.push_back(board[cornerRow][cornerCol]);
 		newCells.push_back(board[cornerRow+1][cornerCol]);
-		newCells.push_back(board[cornerRow+][cornerCol+1]);
+		newCells.push_back(board[cornerRow+1][cornerCol+1]);
 		newCells.push_back(board[cornerRow+1][cornerCol+2]);
 	}
 	else {
