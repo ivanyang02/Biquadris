@@ -158,13 +158,13 @@ void Xwindow::updateBoard(const std::vector<std::vector<Cell *>> &b, int rows, i
 #include <fstream>
 #include <stdlib.h>
 void Xwindow::drawPicture() {
-	ifstream infile{"testfile.txt"};
+	ifstream infile{"splashart.txt"};
 	int rows, cols;
 	infile >> rows >> cols;
 	int r;
 	int g;
 	int b;
-	char *data = (char *) calloc(cols * rows, 4);
+	char data[cols * rows * 4];
 	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols, rows, 32, 0);
 	
 	unsigned long colorvalue;
