@@ -4,6 +4,7 @@ OBlock::OBlock(std::vector<std::vector<Cell *>> board, int level)
 {
 	SetType('O');
 	SetLevel(level);
+    SetPosition(14, 0);
 	board[15][0]->SetType('O');
 	board[15][0]->SetOwner(this);
 	board[15][1]->SetType('O');

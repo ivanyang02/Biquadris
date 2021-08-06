@@ -5,6 +5,10 @@
 Block::~Block() {
 }
 
+int Block::GetCoRow() {
+	return cornerRow;
+}
+
 void Block::SetLevel(int lvl) {
 	level = lvl;
 }
@@ -92,10 +96,6 @@ bool Block::Move(char direction, std::vector<std::vector<Cell *>> board) {
 	}
 	return true;
 }
-
-//void Block::Rotate(char direction) {
-//	std::cout << direction << std::endl;
-//}
 
 void Block::Drop(std::vector<std::vector<Cell *>> board) {
 	while (Move('d', board));

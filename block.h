@@ -15,6 +15,7 @@ class Block {
 	public:
 		//virtual Block(char type, Cell *board[18][11]) = 0;
 		virtual ~Block();
+		virtual int GetCoRow();
 		virtual void SetLevel(int level);
 		virtual void SetType(char type);
 		virtual void SetPosition(int row, int col);

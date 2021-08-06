@@ -21,6 +21,7 @@ class Board {
 		int cols = 11;
 		int extra = 3;
 		int currentLevel = 0;
+		int score = 0;
 		Block *currentBlock;
 		std::vector<std::vector<Cell *>>board;
 	public:
@@ -30,6 +31,7 @@ class Board {
 		void Move(char direction);
 		void Rotate(char direction);
 		void Drop();
+		void ClearLine(int row);
 		std::vector<std::vector<Cell *>> GetBoard() const;
 		char GetCellType(int row, int col) const;
 		int GetRows() const;
