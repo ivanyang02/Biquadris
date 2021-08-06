@@ -65,7 +65,7 @@ void JBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 		cells[i]->SetOwner(nullptr);
 	}
 	for (int i = 0; i < newCells.size(); i++) {
-		newCells[i]->SetType('Z');
+		newCells[i]->SetType('J');
 		newCells[i]->SetOwner(this);
 	}
 	cells = newCells;
