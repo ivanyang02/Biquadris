@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
 	w.drawBoard(18, 11);
 	//drawScreen(&w);
 	Board b1{1, &w}, b2{2, &w};
-	w.drawPicture("splashart.txt", 5,5);
-	w.drawPicture("splashart2.txt", 300,5);
+	w.drawPicture("splashart.txt", 25,5);
+	w.drawPicture("splashart2.txt", 325,5);
 	string input1 = argv[1], input2 = argv[2];
 	ifstream infile1{input1}, infile2{input2};
 	vector<char> sequence1, sequence2;
