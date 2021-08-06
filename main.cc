@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	w.SetPlayerOffset(2, 250, 50);
 	w.drawBoard(18, 11);
 	//drawScreen(&w);
-	Board b1{1, &w}, b2{2, &w};
+	Board b[2] = {Board{1, &w}, Board{2, &w}};
 	w.drawPicture("splashart.txt", 25,5);
 	w.drawPicture("splashart2.txt", 325,5);
 	string input1 = argv[1], input2 = argv[2];
@@ -80,45 +80,45 @@ int main(int argc, char *argv[]) {
 	}
 	string command;
 	int player = 1;
-	while(true) {
 		block1 = sequence1[0];
 		block2 = sequence2[0];
-		b1.AddBlock(block1);
+		b[0].AddBlock(block1);
 		//b1.AddBlock('S');
-		b2.AddBlock(block2);
+		b[1].AddBlock(block2);
 		while(true) {
-			w.updateBoard(b1.GetBoard(), 18, 11);
-
+			w.updateBoard(1, b[0].GetBoard(), 18, 11);
+			w.updateBoard(2, b[1].GetBoard(), 18, 11);
 			if (!(cin >> command)) {
 				return 0;
 			}
 			if (command == "left") {
-				b1.Move('l');
+				b[player - 1].Move('l');
 			} else if (command == "right") {
-				b1.Move('r');	
+				b[player - 1].Move('r');
 			} else if (command == "down") {
-				b1.Move('d');
+				b[player - 1].Move('l');
 			} else if (command == "clockwise") {
-				b1.Rotate('r');
+				b[player - 1].Rotate('r');
 			} else if (command == "counterclockwise") {
-				b1.Rotate('l');
+				b[player - 1].Rotate('l');
 			} else if (command == "drop") {
-				b1.Drop();
+				b[player - 1].Drop();
 				if (player == 1) {
 					if (blockIndex1 == sequence1.size()) {
 						blockIndex1 = 0;
 					}
 					block1 = sequence1[blockIndex1];
-					b1.AddBlock(block1);
+					b[0].AddBlock(block1);
 					blockIndex1++;
-				}
-				if (player == 2) {
+					player = 2;
+				} else if (player == 2) {
 					if (blockIndex2 == sequence2.size()) {
 						blockIndex2 = 0;
 					}
 					block2 = sequence2[blockIndex2];
-					b2.AddBlock(block2);
+					b[1].AddBlock(block2);
 					blockIndex2++;
+					player = 1;
 				}
 			} else if (command == "levelup") {
 			
@@ -133,17 +133,8 @@ int main(int argc, char *argv[]) {
 			} else if (command == "restart") {
 			
 			} else if (command == "p") {
-				cout << b1 << endl << b2 << endl;
+				cout << b[0] << endl << b[1] << endl;
 				//w.updateBoard(b1, 50, 50);
 			}
-		}
-		blockIndex1++;
-		blockIndex2++;
-		if (player == 1) {
-			player == 2;
-		} else {
-			player == 1;
-		}
 	}
-	cout << b1 << endl;
 }

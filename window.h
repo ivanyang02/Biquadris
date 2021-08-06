@@ -40,7 +40,7 @@ class Xwindow {
 	void SetPlayerOffset(int player, int x, int y);
 	void fillCell(int player, int x, int y, char type);
 	void drawBoard(int rows, int cols, int level1 = 0, int level2 = 0);
-	void updateBoard(const std::vector<std::vector<Cell *>> &b, int rows, int cols);
+	void updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols);
 	void drawPicture(std::string filename, int x, int y);
 	unsigned long RGB(int r, int g, int b);
 };
