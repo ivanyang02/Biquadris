@@ -30,10 +30,10 @@ Xwindow::Xwindow(int width, int height):
 	XFlush(d);
 	XColor xcolour;
 	Colormap cmap;
-	char color_vals[7][10]={"white", "black", "red", "green", "blue", "orange"};
+	char color_vals[9][10]={"white", "black", "red", "green", "blue", "orange", "yellow", "purple", "cyan"};
 
 	cmap=DefaultColormap(d,DefaultScreen(d));
-	for(int i=0; i < 6; ++i) {
+	for(int i=0; i < 9; ++i) {
 		XParseColor(d,cmap,color_vals[i],&xcolour);
 		XAllocColor(d,cmap,&xcolour);
 		colours[i]=xcolour.pixel;
@@ -84,11 +84,19 @@ void Xwindow::fillCell(int player, int row, int col, char type) {
 	if (type == '.') {
 		XSetForeground(d, gc, colours[White]);
 	} else if (type == 'I') {
-		XSetForeground(d, gc, colours[Blue]);
+		XSetForeground(d, gc, colours[Cyan]);
 	} else if (type == 'J') {
+		XSetForeground(d, gc, colours[Blue]);
+	} else if (type == 'L') {
 		XSetForeground(d, gc, colours[Orange]);
-	} else {
+	} else if (type == 'O') {
+		XSetForeground(d, gc, colours[Yellow]);
+	} else if (type == 'S') {
 		XSetForeground(d, gc, colours[Green]);
+	} else if (type == 'Z') {
+		XSetForeground(d, gc, colours[Red]);
+	} else if (type == 'T') {
+		XSetForeground(d,gc, colours[Purple]);
 	}
 	int xPosition;
 	int yPosition;
