@@ -16,7 +16,7 @@ Cell::~Cell() {
 void Cell::SetType(char t) {
 	type = t;
 	if (window != nullptr) {
-		window->fillCell(player, row, col, type);
+	//	window->fillCell(player, row, col, type);
 	}
 }
 

@@ -5,6 +5,7 @@
 #include <string>
 #include <unistd.h>
 #include "window.h"
+#include "cell.h"
 
 using namespace std;
 
@@ -120,12 +121,63 @@ void Xwindow::drawBoard(int rows, int cols, int level1, int level2) {
 	fillRectangle(p1X, screenHeight - (p1Y - height), width * cols, height, Xwindow::Black);
 }
 
+void Xwindow::updateBoard(const std::vector<std::vector<Cell *>> &b, int rows, int cols) {
+	char *data = (char *) calloc(cols * rows * width * height, 4);
+	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols * width, rows * height, 32, 0);
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			for (int k = 0; k < height; k++) {
+				for (int l = 0; l < width; l++) {
+					int yPos = (rows * height - 1) - (i * height + k);
+	if (k == height - 1 || l == width - 1) {
+		XPutPixel(newimage, j * width + l, yPos, RGB(200,200,200));
+	} else if (b[i][j]->GetType() == '.') {
+	XPutPixel(newimage, j * width + l, yPos, colours[White]);
+	} else if (b[i][j]->GetType() == 'I') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Cyan]);
+	} else if (b[i][j]->GetType() == 'J') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Blue]);
+	} else if (b[i][j]->GetType() == 'L') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Orange]);
+	} else if (b[i][j]->GetType() == 'O') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Yellow]);
+	} else if (b[i][j]->GetType() == 'S') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Green]);
+	} else if (b[i][j]->GetType() == 'Z') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Red]);
+	} else if (b[i][j]->GetType() == 'T') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Purple]);
+	}
+				}
+			}
+		}
+	}
+	XPutImage(d,w,gc, newimage,0,0,p1X,screenHeight - (p1Y + (rows - 1) * height),cols * width, rows * height);
+}
 
-//void Xwindow::updateBoard(const Board &b, int offsetX, int offsetY) {
-	//fillRectangle(offsetX, offsetY, width * b.GetCols(), height * b.GetRows(), Xwindow::Green);
-//	for (int i = 0; i < b.GetRows(); i++) {
-//		for (int j = 0; j < b.GetCols(); j++) {
-//			fillCell(j * width + offsetX, (b.GetRows() - i - 1) * height + offsetY, b.GetCellType(i, j));
-//		}
-//	}
-//}
+#include <fstream>
+#include <stdlib.h>
+void Xwindow::drawPicture() {
+	ifstream infile{"testfile.txt"};
+	int rows, cols;
+	infile >> rows >> cols;
+	int r;
+	int g;
+	int b;
+	char *data = (char *) calloc(cols * rows, 4);
+	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols, rows, 32, 0);
+	
+	unsigned long colorvalue;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			infile >> r >> g >> b;
+			colorvalue = RGB(r,g,b);
+			XPutPixel(newimage, j, i, colorvalue);
+		}
+	}
+	XPutImage(d, w, gc, newimage, 0, 0, 5, 5, cols, rows);
+}
+
+unsigned long Xwindow::RGB(int r, int g, int b)  {
+	return b + (g << 8) + (r << 16);
+}

@@ -23,6 +23,7 @@ class Board {
 		int currentLevel = 0;
 		int score = 0;
 		Block *currentBlock;
+		Xwindow *window;
 		std::vector<std::vector<Cell *>>board;
 	public:
 		Board(int player, Xwindow *w = nullptr);

@@ -61,8 +61,8 @@ int main(int argc, char *argv[]) {
 	w.SetPlayerOffset(2, 250, 50);
 	w.drawBoard(18, 11);
 	//drawScreen(&w);
-
 	Board b1{1, &w}, b2{2, &w};
+	w.drawPicture();
 	string input1 = argv[1], input2 = argv[2];
 	ifstream infile1{input1}, infile2{input2};
 	vector<char> sequence1, sequence2;
@@ -86,6 +86,8 @@ int main(int argc, char *argv[]) {
 		//b1.AddBlock('S');
 		b2.AddBlock(block2);
 		while(true) {
+			w.updateBoard(b1.GetBoard(), 18, 11);
+
 			if (!(cin >> command)) {
 				return 0;
 			}

@@ -8,6 +8,7 @@
 //#include "cell.h"
 //#include "board.h"
 
+class Cell;
 
 class Xwindow {
 	Display *d;
@@ -39,7 +40,9 @@ class Xwindow {
 	void SetPlayerOffset(int player, int x, int y);
 	void fillCell(int player, int x, int y, char type);
 	void drawBoard(int rows, int cols, int level1 = 0, int level2 = 0);
-//	void updateBoard(const Board &b, int offsetX, int offsetY);
+	void updateBoard(const std::vector<std::vector<Cell *>> &b, int rows, int cols);
+	void drawPicture();
+	unsigned long RGB(int r, int g, int b);
 };
 
 #endif

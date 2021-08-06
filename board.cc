@@ -93,6 +93,10 @@ void Board::ClearLine(int row) {
 	}
 }
 
+std::vector<std::vector<Cell *>> Board::GetBoard() const {
+	return board;
+}
+
 char Board::GetCellType(int row, int col) const {
 	return board[row][col]->GetType();
 }

@@ -24,9 +24,9 @@ void JBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	std::cout << "jblockrotate " << direction << std::endl;
 	std::vector<Cell *> newCells;
 	int size = cells.size();
-
+	int oldposition = position;
 	if (position % 2 == 1) {
-	    if (cornerCol + 2 >= 11) {
+		if (cornerCol + 2 >= 11) {
 			return;
 		}
 	}
@@ -67,6 +67,7 @@ void JBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 
 	for (int i = 0; i < newCells.size(); i++) {
 		if (newCells[i]->GetOwner() != nullptr && newCells[i]->GetOwner() != this) {
+			position = oldposition;
 			return;
 		}
 	}
