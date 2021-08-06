@@ -37,7 +37,12 @@ void JBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 		position--;
 	}
 
-	position = position%4;
+	if (position < 0) {
+		position = 3;
+	}
+	if (position > 3) {
+		position = 0;
+	}
 	if (position == 3) {
 		newCells.push_back(board[cornerRow][cornerCol]);
 		newCells.push_back(board[cornerRow][cornerCol+1]);

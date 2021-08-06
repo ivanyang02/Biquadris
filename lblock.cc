@@ -36,7 +36,12 @@ void LBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	else {
 		position--;
 	}
-	position = position%4;
+	if (position < 0) {
+		position = 3;
+	}
+	if (position > 3) {
+		position = 0;
+	}
 	if (position == 3) {
 		newCells.push_back(board[cornerRow+2][cornerCol]);
 		newCells.push_back(board[cornerRow+2][cornerCol+1]);

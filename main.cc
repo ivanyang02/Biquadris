@@ -82,8 +82,8 @@ int main(int argc, char *argv[]) {
 	while(true) {
 		block1 = sequence1[0];
 		block2 = sequence2[0];
-		//b1.AddBlock(block1);
-		b1.AddBlock('S');
+		b1.AddBlock(block1);
+		//b1.AddBlock('S');
 		b2.AddBlock(block2);
 		while(true) {
 			if (!(cin >> command)) {
@@ -107,7 +107,6 @@ int main(int argc, char *argv[]) {
 					}
 					block1 = sequence1[blockIndex1];
 					b1.AddBlock(block1);
-					//b1.AddBlock('S');
 					blockIndex1++;
 				}
 				if (player == 2) {

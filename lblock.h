@@ -7,8 +7,8 @@
 #include "block.h"
 
 class LBlock : public Block {
+	int position;
 	public:
-		int position;
 		LBlock(std::vector<std::vector<Cell *>> board, int level);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
