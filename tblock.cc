@@ -22,7 +22,7 @@ void TBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 	std::cout << "tblockrotate " << direction << std::endl;
 	std::vector<Cell *> newCells;
 	int size = cells.size();
-	if (direction == counterclockwise) {
+	if (direction == "counterclockwise") {
 		position++;
 	}
 	else {
