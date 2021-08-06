@@ -157,8 +157,8 @@ void Xwindow::updateBoard(const std::vector<std::vector<Cell *>> &b, int rows, i
 
 #include <fstream>
 #include <stdlib.h>
-void Xwindow::drawPicture() {
-	ifstream infile{"splashart.txt"};
+void Xwindow::drawPicture(std::string filename, int x, int y) {
+	ifstream infile{filename};
 	int rows, cols;
 	infile >> rows >> cols;
 	int r;
@@ -175,7 +175,7 @@ void Xwindow::drawPicture() {
 			XPutPixel(newimage, j, i, colorvalue);
 		}
 	}
-	XPutImage(d, w, gc, newimage, 0, 0, 5, 5, cols, rows);
+	XPutImage(d, w, gc, newimage, 0, 0, x, y, cols, rows);
 }
 
 unsigned long Xwindow::RGB(int r, int g, int b)  {
