@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
 	w.drawBoard(18, 11);
 	//drawScreen(&w);
 	Board b1{1, &w}, b2{2, &w};
-	w.drawPicture();
+	//w.drawPicture();
 	string input1 = argv[1], input2 = argv[2];
 	ifstream infile1{input1}, infile2{input2};
 	vector<char> sequence1, sequence2;
