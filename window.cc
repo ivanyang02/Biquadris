@@ -122,7 +122,7 @@ void Xwindow::drawBoard(int rows, int cols, int level1, int level2) {
 }
 
 void Xwindow::updateBoard(const std::vector<std::vector<Cell *>> &b, int rows, int cols) {
-	char *data = (char *) calloc(cols * rows * width * height, 4);
+	char data[cols * rows * width * height * 4];
 	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols * width, rows * height, 32, 0);
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
