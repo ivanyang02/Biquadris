@@ -28,7 +28,7 @@ class Board {
 	public:
 		Board(int player, Xwindow *w = nullptr);
 		~Board();
-		void AddBlock(char type);
+		bool AddBlock(char type);
 		void Move(char direction);
 		void Rotate(char direction);
 		void Drop();

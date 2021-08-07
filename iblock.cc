@@ -6,6 +6,14 @@ IBlock::IBlock(std::vector<std::vector<Cell *>> board, int level)
 	SetType('I');
 	SetLevel(level);
 	SetPosition(14, 0);
+	try {
+		AddCell(board[14][0]);
+		AddCell(board[14][1]);
+		AddCell(board[14][2]);
+		AddCell(board[14][3]);
+	} catch (OccupiedCell e) {
+		throw OccupiedCell{};
+	}/*
 	board[14][0]->SetType('I');
 	board[14][0]->SetOwner(this);
 	board[14][1]->SetType('I');
@@ -17,7 +25,7 @@ IBlock::IBlock(std::vector<std::vector<Cell *>> board, int level)
 	AddCell(board[14][0]);
 	AddCell(board[14][1]);
 	AddCell(board[14][2]);
-	AddCell(board[14][3]);
+	AddCell(board[14][3]);*/
 }
 
 void IBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {

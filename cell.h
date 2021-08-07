@@ -15,6 +15,7 @@ class Cell {
 	public:
 	Cell(int player, int row, int col, Xwindow *w);
 	~Cell();
+	void AddCell(char t, Block *b);
 	void SetType(char t);
 	void SetOwner(Block *b);
 	char GetType() const;
@@ -22,6 +23,9 @@ class Cell {
 	int GetRow();
 	int GetCol();
 	bool operator==(const Cell& other);
+};
+
+class OccupiedCell {
 };
 
 #endif

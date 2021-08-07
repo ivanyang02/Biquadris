@@ -13,6 +13,14 @@ Cell::Cell(int player, int row, int col, Xwindow *w):
 Cell::~Cell() {
 }
 
+void Cell::AddCell(char t, Block *owner) {
+	if (GetOwner() != nullptr) {
+		throw OccupiedCell{};
+	}
+	SetType(t);
+	SetOwner(owner);
+}
+
 void Cell::SetType(char t) {
 	type = t;
 	if (window != nullptr) {
@@ -58,3 +66,5 @@ bool Cell::operator==(const Cell &other) {
 	}
 	return true;
 }
+
+//OccupiedCell::OccupiedCell() {}

@@ -5,19 +5,15 @@ TBlock::TBlock(std::vector<std::vector<Cell *>> board, int level)
 	position = 0;
 	SetType('T');
 	SetLevel(level);
-    SetPosition(14, 0);
-	board[14][1]->SetType('T');
-	board[14][1]->SetOwner(this);
-	board[15][0]->SetType('T');
-	board[15][0]->SetOwner(this);
-	board[15][1]->SetType('T');
-	board[15][1]->SetOwner(this);
-	board[15][2]->SetType('T');
-	board[15][2]->SetOwner(this);
+	SetPosition(14, 0);
+	try {
 	AddCell(board[14][1]);
 	AddCell(board[15][0]);
 	AddCell(board[15][1]);
 	AddCell(board[15][2]);
+	} catch (OccupiedCell e) {
+		throw OccupiedCell{};
+	}
 }
 
 void TBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {

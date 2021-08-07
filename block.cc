@@ -23,6 +23,7 @@ void Block::SetPosition(int row, int col) {
 }
 
 void Block::AddCell(Cell *cell) {
+	cell->AddCell(type, this);
 	cells.push_back(cell);
 }
 

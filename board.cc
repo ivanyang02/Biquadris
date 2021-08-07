@@ -20,29 +20,37 @@ Board::~Board() {
 	}
 }
 
-void Board::AddBlock(char type) {
+bool Board::AddBlock(char type) {
+	Block *newBlock;
+	try {
 	if (type == 'I') {
-		IBlock *newBlock = new IBlock(board, currentLevel);
-		currentBlock = newBlock;
+		IBlock *temp = new IBlock(board, currentLevel);
+		newBlock = temp;
 	} else if (type == 'J') {
-		JBlock *newBlock = new JBlock(board, currentLevel);
-		currentBlock = newBlock;
+		JBlock *temp = new JBlock(board, currentLevel);
+		newBlock = temp;
 	} else if (type == 'L') {
-		LBlock *newBlock = new LBlock(board, currentLevel);
-		currentBlock = newBlock;
+		LBlock *temp = new LBlock(board, currentLevel);
+		newBlock = temp;
 	} else if (type == 'O') {
-		OBlock *newBlock = new OBlock(board, currentLevel);
-		currentBlock = newBlock;
+		OBlock *temp = new OBlock(board, currentLevel);
+		newBlock = temp;
 	} else if (type == 'S') {
-		SBlock *newBlock = new SBlock(board, currentLevel);
-		currentBlock = newBlock;
+		SBlock *temp = new SBlock(board, currentLevel);
+		newBlock = temp;
 	} else if (type == 'Z') {
-		ZBlock *newBlock = new ZBlock(board, currentLevel);
-		currentBlock = newBlock;
+		ZBlock *temp = new ZBlock(board, currentLevel);
+		newBlock = temp;
 	} else if (type == 'T') {
-		TBlock *newBlock = new TBlock(board, currentLevel);
-		currentBlock = newBlock;
+		TBlock *temp = new TBlock(board, currentLevel);
+		newBlock = temp;
 	}
+	} catch (OccupiedCell e) {
+		std::cout << "false" << std::endl;
+		return false;
+	}
+	currentBlock = newBlock;
+	return true;
 }
 
 void Board::Move(char direction) {

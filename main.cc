@@ -108,7 +108,10 @@ int main(int argc, char *argv[]) {
 						blockIndex1 = 0;
 					}
 					block1 = sequence1[blockIndex1];
-					b[0].AddBlock(block1);
+					if (!b[0].AddBlock(block1)) {
+						cout << "player 2 wins" << endl;
+						break;
+					}
 					blockIndex1++;
 					player = 2;
 				} else if (player == 2) {
@@ -116,7 +119,10 @@ int main(int argc, char *argv[]) {
 						blockIndex2 = 0;
 					}
 					block2 = sequence2[blockIndex2];
-					b[1].AddBlock(block2);
+					if (!b[1].AddBlock(block2)) {
+						cout << "player 1 wins" << endl;
+						break;
+					}
 					blockIndex2++;
 					player = 1;
 				}
