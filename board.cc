@@ -142,7 +142,7 @@ void Board::ClearLine(int row) {
 					if (newOwner != nullptr) {
 						newOwner->RemoveCell(board[row + i + up][j]);
 						newOwner->AddCell(board[row + i][j]);
-					} else {
+					} else if (board[row + i + up][j]->GetType() == '*') {
 						board[row + i + up][j]->SetType('.');
 						board[row + i][j]->SetType('*');
 					}
