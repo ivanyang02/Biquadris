@@ -28,6 +28,8 @@ class Board {
 	public:
 		Board(int player, Xwindow *w = nullptr);
 		~Board();
+		int GetLevel();
+		int GetScore();
 		bool AddBlock(char type);
 		void Move(char direction);
 		void Rotate(char direction);

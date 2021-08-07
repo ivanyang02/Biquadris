@@ -5,8 +5,16 @@
 Block::~Block() {
 }
 
+int Block::GetLevel() {
+	return level;
+}
+
 int Block::GetCoRow() {
 	return cornerRow;
+}
+
+int Block::GetCellsCount() {
+	return cells.size();
 }
 
 void Block::SetLevel(int lvl) {
@@ -25,6 +33,17 @@ void Block::SetPosition(int row, int col) {
 void Block::AddCell(Cell *cell) {
 	cell->AddCell(type, this);
 	cells.push_back(cell);
+}
+
+void Block::RemoveCell(Cell *cell) {
+	cell->SetType('.');
+	cell->SetOwner(nullptr);
+	for (int i = 0; i < cells.size(); ++i) {
+		if (cells[i] = cell) {
+			cells.erase(cells.begin() + i);
+			break;
+		}
+	}
 }
 
 bool Block::Move(char direction, std::vector<std::vector<Cell *>> board) {

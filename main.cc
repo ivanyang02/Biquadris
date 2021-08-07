@@ -86,8 +86,8 @@ int main(int argc, char *argv[]) {
 		//b1.AddBlock('S');
 		b[1].AddBlock(block2);
 		while(true) {
-			w.updateBoard(1, b[0].GetBoard(), 18, 11);
-			w.updateBoard(2, b[1].GetBoard(), 18, 11);
+			w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel());
+			w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel());
 			if (!(cin >> command)) {
 				return 0;
 			}
