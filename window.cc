@@ -115,10 +115,8 @@ void Xwindow::fillCell(int player, int row, int col, char type) {
 }
 
 void Xwindow::drawBoard(int rows, int cols, int level1, int level2) {
-	fillRectangle(p1X - width, screenHeight - p1Y - height * (rows - 1), width, height * rows, Xwindow::Black);
-	fillRectangle(p1X + cols * width, screenHeight - p1Y - height * (rows - 1), width, height * rows, Xwindow::Black);
-	fillRectangle(p1X, screenHeight - (p1Y + rows * height), width * cols, height, Xwindow::Black);
-	fillRectangle(p1X, screenHeight - (p1Y - height), width * cols, height, Xwindow::Black);
+	fillRectangle(p1X - width, screenHeight - p1Y - rows * height, (cols + 2) * width, (rows + 2) * height, Xwindow::Black);
+	fillRectangle(p2X - width, screenHeight - p2Y - rows * height, (cols + 2) * width, (rows + 2) * height, Xwindow::Black);
 }
 
 void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols) {

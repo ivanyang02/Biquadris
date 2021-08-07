@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
 			} else if (command == "right") {
 				b[player - 1].Move('r');
 			} else if (command == "down") {
-				b[player - 1].Move('l');
+				b[player - 1].Move('d');
 			} else if (command == "clockwise") {
 				b[player - 1].Rotate('r');
 			} else if (command == "counterclockwise") {
