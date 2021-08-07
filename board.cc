@@ -114,7 +114,7 @@ void Board::ClearLine(int row) {
 				}
 			}
 		}
-	    for (int i = rows - lineCleared - 1; i < rows; ++i) {
+	    for (int i = rows - lineCleared; i < rows; ++i) {
 			for (int j = 0; j < cols; ++j) {
 				board[i][j]->SetType('.');
 				board[i][j]->SetOwner(nullptr);
