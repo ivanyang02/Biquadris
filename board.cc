@@ -162,13 +162,11 @@ void Board::ClearLine(int row) {
 }
 
 void Board::LevelUp() {
-	if (currentLevel >= 4) return;
-	++currentLevel;
+	if (currentLevel < 4) ++currentLevel;
 }
 
 void Board::LevelDown() {
-	if (currentLevel <= 0) return;
-	--currentLevel;
+	if (currentLevel > 0) --currentLevel;
 }
 
 std::vector<std::vector<Cell *>> Board::GetBoard() const {
