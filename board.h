@@ -21,24 +21,30 @@ class Board {
 		int cols = 11;
 		int extra = 3;
 		int currentLevel = 0;
+		int level4Count = 0;
 		int score = 0;
+        std::vector<char> sequence;
+		int seqIndex = 0;
 		Block *currentBlock;
 		Xwindow *window;
 		std::vector<std::vector<Cell *>>board;
 	public:
-		Board(int player, Xwindow *w = nullptr);
+		Board(int player, std::vector<char> seq, Xwindow *w = nullptr);
 		~Board();
-		int GetLevel();
-		int GetScore();
+		bool NewBlock();
 		bool AddBlock(char type);
 		void Move(char direction);
 		void Rotate(char direction);
 		void Drop();
 		void ClearLine(int row);
+		void LevelUp();
+		void LevelDown();
 		std::vector<std::vector<Cell *>> GetBoard() const;
 		char GetCellType(int row, int col) const;
 		int GetRows() const;
 		int GetCols() const;
+		int GetLevel() const;
+		int GetScore() const;
 		friend std::ostream &operator<<(std::ostream &out, const Board &b);		
 };
 

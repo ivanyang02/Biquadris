@@ -1,7 +1,9 @@
 #include "board.h"
+#include <cstdlib>
 
-Board::Board(int player, Xwindow *w):
-	player{player}
+Board::Board(int player, std::vector<char> seq, Xwindow *w):
+	player{player},
+	sequence{seq}
 {
 	board = std::vector<std::vector<Cell *>>(rows + extra);
 	for (int i = 0; i < rows + extra; i++) {
@@ -20,39 +22,59 @@ Board::~Board() {
 	}
 }
 
-int Board::GetLevel() {
-	return currentLevel;
-}
-
-int Board::GetScore() {
-	return score;
+bool Board::NewBlock() {
+	char type;
+	if (currentLevel == 0) {
+		type = sequence[seqIndex];
+		++seqIndex;
+		if (seqIndex == sequence.size()) {
+			seqIndex = 0;
+		}
+	} else if (currentLevel == 1) {
+		char blocks[12] = {'I', 'I', 'J', 'J', 'L', 'L', 'O', 'O', 'T', 'T', 'S', 'Z'};
+		int rng = rand() % 12;
+		std::cout << rng << std::endl;
+		type = blocks[rng];
+	} else if (currentLevel == 2) {
+		char blocks[7] = {'I', 'J', 'L', 'O', 'T', 'S', 'Z'};
+		int rng = rand() % 7;
+		std::cout << rng << std::endl;
+		type = blocks[rng];
+	} else if (currentLevel == 3) {
+		char blocks[9] = {'I', 'J', 'L', 'O', 'T', 'S', 'S', 'Z', 'Z'};
+		int rng = rand() % 9;
+		std::cout << rng << std::endl;
+		type = blocks[rng];
+	}
+	if (!AddBlock(type)) return false;
+	return true;
 }
 
 bool Board::AddBlock(char type) {
 	Block *newBlock;
 	try {
-	if (type == 'I') {
-		IBlock *temp = new IBlock(board, currentLevel);
-		newBlock = temp;
-	} else if (type == 'J') {
-		JBlock *temp = new JBlock(board, currentLevel);
-		newBlock = temp;
-	} else if (type == 'L') {
-		LBlock *temp = new LBlock(board, currentLevel);
-		newBlock = temp;
-	} else if (type == 'O') {
-		OBlock *temp = new OBlock(board, currentLevel);
-		newBlock = temp;
-	} else if (type == 'S') {
-		SBlock *temp = new SBlock(board, currentLevel);
-		newBlock = temp;
-	} else if (type == 'Z') {
-		ZBlock *temp = new ZBlock(board, currentLevel);
-		newBlock = temp;
-	} else if (type == 'T') {
-		TBlock *temp = new TBlock(board, currentLevel);
-		newBlock = temp;
-	}
+		if (type == 'I') {
+			IBlock *temp = new IBlock(board, currentLevel);
+			newBlock = temp;
+		} else if (type == 'J') {
+			JBlock *temp = new JBlock(board, currentLevel);
+			newBlock = temp;
+		} else if (type == 'L') {
+			LBlock *temp = new LBlock(board, currentLevel);
+			newBlock = temp;
+		} else if (type == 'O') {
+			OBlock *temp = new OBlock(board, currentLevel);
+			newBlock = temp;
+		} else if (type == 'S') {
+			SBlock *temp = new SBlock(board, currentLevel);
+			newBlock = temp;
+		} else if (type == 'Z') {
+			ZBlock *temp = new ZBlock(board, currentLevel);
+			newBlock = temp;
+		} else if (type == 'T') {
+			TBlock *temp = new TBlock(board, currentLevel);
+			newBlock = temp;
+		}
 	} catch (OccupiedCell e) {
 		std::cout << "false" << std::endl;
 		return false;
@@ -123,6 +145,16 @@ void Board::ClearLine(int row) {
 	}
 }
 
+void Board::LevelUp() {
+	if (currentLevel >= 4) return;
+	++currentLevel;
+}
+
+void Board::LevelDown() {
+	if (currentLevel <= 0) return;
+	--currentLevel;
+}
+
 std::vector<std::vector<Cell *>> Board::GetBoard() const {
 	return board;
 }
@@ -137,6 +169,14 @@ int Board::GetRows() const {
 
 int Board::GetCols() const {
 	return cols;
+}
+
+int Board::GetLevel() const{
+	return currentLevel;
+}
+
+int Board::GetScore() const {
+	return score;
 }
 
 std::ostream &operator<<(std::ostream &out, const Board &b) {
