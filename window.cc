@@ -119,7 +119,7 @@ void Xwindow::drawBoard(int rows, int cols, int level1, int level2) {
 	fillRectangle(p2X - width, screenHeight - p2Y - rows * height, (cols + 2) * width, (rows + 2) * height, Xwindow::Black);
 }
 
-void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level) {
+void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols) {
 	char data[cols * rows * width * height * 4];
 	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols * width, rows * height, 32, 0);
 	for (int i = 0; i < rows; i++) {
@@ -163,7 +163,6 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b,
 		drawString(p2X, screenHeight - (p2Y + (rows) * height + 5), "score: " + std::to_string(score));
 		XPutImage(d,w,gc, newimage,0,0,p2X,screenHeight - (p2Y + (rows - 1) * height),cols * width, rows * height);
 	}
-
 }
 
 #include <fstream>
