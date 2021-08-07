@@ -33,18 +33,28 @@ bool Board::NewBlock() {
 	} else if (currentLevel == 1) {
 		char blocks[12] = {'I', 'I', 'J', 'J', 'L', 'L', 'O', 'O', 'T', 'T', 'S', 'Z'};
 		int rng = rand() % 12;
-		std::cout << rng << std::endl;
 		type = blocks[rng];
 	} else if (currentLevel == 2) {
 		char blocks[7] = {'I', 'J', 'L', 'O', 'T', 'S', 'Z'};
 		int rng = rand() % 7;
-		std::cout << rng << std::endl;
 		type = blocks[rng];
-	} else if (currentLevel == 3) {
+	} else {
 		char blocks[9] = {'I', 'J', 'L', 'O', 'T', 'S', 'S', 'Z', 'Z'};
 		int rng = rand() % 9;
-		std::cout << rng << std::endl;
 		type = blocks[rng];
+	}
+	if (currentLevel == 4) {
+		if (level4Count % 5 == 0) {
+		   bool toohigh = true;
+			for (int i = 0; i < rows; ++i) {
+				if (board[i][5]->GetType() == '.') {
+					board[i][5]->SetType('*');
+					toohigh = false;
+					break;
+				}
+			}
+			if (toohigh) return false;
+		}
 	}
 	if (!AddBlock(type)) return false;
 	return true;
@@ -96,6 +106,7 @@ void Board::Rotate(char direction) {
 void Board::Drop() {
 	currentBlock->Drop(board);
 	ClearLine(currentBlock->GetCoRow());
+	if (currentLevel == 4) ++level4Count;
 }
 
 void Board::ClearLine(int row) {
@@ -120,15 +131,20 @@ void Board::ClearLine(int row) {
 		for (int i = 0; i < rows - row - lineCleared; ++i) {
 			int up = (i >= (4 - lineCleared) ? lineCleared : movedown[i]);
 			for (int j = 0; j < cols; ++j) {
-				Block *curOwner = board[row + i][j]->GetOwner();
-				Block *newOwner = board[row + i + up][j]->GetOwner();
-				if (curOwner != nullptr || newOwner != nullptr) {
+				if (board[row + i][j]->GetType() != '.' || board[row + i + up][j]->GetType() != '.') {
+					Block *curOwner = board[row + i][j]->GetOwner();
+					Block *newOwner = board[row + i + up][j]->GetOwner();
 					if (curOwner != nullptr) {
 						curOwner->RemoveCell(board[row + i][j]);
+					} else {
+						board[row + i][j]->SetType('.');
 					}
 					if (newOwner != nullptr) {
 						newOwner->RemoveCell(board[row + i + up][j]);
 						newOwner->AddCell(board[row + i][j]);
+					} else {
+						board[row + i + up][j]->SetType('.');
+						board[row + i][j]->SetType('*');
 					}
 					if (curOwner != nullptr && curOwner->GetCellsCount() == 0) {
 						score += (curOwner->GetLevel() + 1) * (curOwner->GetLevel() + 1);

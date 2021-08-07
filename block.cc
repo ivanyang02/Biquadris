@@ -75,7 +75,7 @@ bool Block::Move(char direction, std::vector<std::vector<Cell *>> board) {
 			}
 			next = board[row - 1][col];
 		}
-		if (current->GetOwner() != next->GetOwner() && next->GetOwner() != nullptr) {
+		if (current->GetOwner() != next->GetOwner() && next->GetType() != '.') {
 			return false;
 		}
 		if (current->GetOwner() == next->GetOwner()) {

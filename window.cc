@@ -129,6 +129,8 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b,
 					int yPos = (rows * height - 1) - (i * height + k);
 	if (k == height - 1 || l == width - 1) {
 		XPutPixel(newimage, j * width + l, yPos, RGB(200,200,200));
+	} else if (b[i][j]->GetType() == '*') {
+	XPutPixel(newimage, j * width + l, yPos, colours[Black]);
 	} else if (b[i][j]->GetType() == '.') {
 	XPutPixel(newimage, j * width + l, yPos, colours[White]);
 	} else if (b[i][j]->GetType() == 'I') {
