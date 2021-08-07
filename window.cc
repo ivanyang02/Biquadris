@@ -31,10 +31,10 @@ Xwindow::Xwindow(int width, int height):
 	XFlush(d);
 	XColor xcolour;
 	Colormap cmap;
-	char color_vals[9][10]={"white", "black", "red", "green", "blue", "orange", "yellow", "purple", "cyan"};
+	char color_vals[10][10]={"white", "black", "red", "green", "blue", "orange", "yellow", "purple", "cyan", "brown"};
 
 	cmap=DefaultColormap(d,DefaultScreen(d));
-	for(int i=0; i < 9; ++i) {
+	for(int i=0; i < 10; ++i) {
 		XParseColor(d,cmap,color_vals[i],&xcolour);
 		XAllocColor(d,cmap,&xcolour);
 		colours[i]=xcolour.pixel;
@@ -130,7 +130,7 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b,
 	if (k == height - 1 || l == width - 1) {
 		XPutPixel(newimage, j * width + l, yPos, RGB(200,200,200));
 	} else if (b[i][j]->GetType() == '*') {
-	XPutPixel(newimage, j * width + l, yPos, colours[Black]);
+	XPutPixel(newimage, j * width + l, yPos, colours[Brown]);
 	} else if (b[i][j]->GetType() == '.') {
 	XPutPixel(newimage, j * width + l, yPos, colours[White]);
 	} else if (b[i][j]->GetType() == 'I') {
@@ -153,12 +153,12 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b,
 		}
 	}
 	if (player == 1) {
-		fillRectangle(p1X + 45, screenHeight - p1Y - rows * height - 30, 100, 30, Xwindow::White);
+		fillRectangle(p1X + 40, screenHeight - p1Y - rows * height - 30, 100, 30, Xwindow::White);
 		drawString(p1X, screenHeight - (p1Y + (rows + 1) * height + 7), "level: " + std::to_string(level));
 		drawString(p1X, screenHeight - (p1Y + (rows) * height + 5), "score: " + std::to_string(score));
 		XPutImage(d,w,gc, newimage,0,0,p1X,screenHeight - (p1Y + (rows - 1) * height),cols * width, rows * height);
 	} else {
-		fillRectangle(p2X + 45, screenHeight - p2Y - rows * height - 30, 100, 30, Xwindow::White);
+		fillRectangle(p2X + 40, screenHeight - p2Y - rows * height - 30, 100, 30, Xwindow::White);
 		drawString(p2X, screenHeight - (p2Y + (rows + 1) * height + 7), "level: " + std::to_string(level));
 		drawString(p2X, screenHeight - (p2Y + (rows) * height + 5), "score: " + std::to_string(score));
 		XPutImage(d,w,gc, newimage,0,0,p2X,screenHeight - (p2Y + (rows - 1) * height),cols * width, rows * height);
