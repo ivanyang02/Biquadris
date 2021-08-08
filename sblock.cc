@@ -1,6 +1,6 @@
 #include "sblock.h"
 
-SBlock::SBlock(std::vector<std::vector<Cell *>> board, int level)
+SBlock::SBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
 {
 	vertical = false;
 	SetType('S');
@@ -16,8 +16,8 @@ SBlock::SBlock(std::vector<std::vector<Cell *>> board, int level)
 	}
 }
 
-void SBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::vector <Cell *> newCells;
+void SBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
+	std::vector <std::shared_ptr<Cell>> newCells;
 	int size = cells.size();
 	if (vertical) {
 		if (cornerCol + 2 >= 11) {

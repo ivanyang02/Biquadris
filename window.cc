@@ -126,7 +126,7 @@ void Xwindow::drawBoard(int rows, int cols, int level1, int level2) {
 
 }
 
-void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next) {
+void Xwindow::updateBoard(int player, const std::vector<std::vector<std::shared_ptr<Cell>>> &b, int rows, int cols, int score, int level, char next) {
 	char data[cols * rows * width * height * 4];
 	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols * width, rows * height, 32, 0);
 	for (int i = 0; i < rows; i++) {

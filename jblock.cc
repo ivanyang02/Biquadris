@@ -1,6 +1,6 @@
 #include "jblock.h"
 
-JBlock::JBlock(std::vector<std::vector<Cell *>> board, int level)
+JBlock::JBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
 {
 	position = 0;
 	SetType('J');
@@ -16,8 +16,8 @@ JBlock::JBlock(std::vector<std::vector<Cell *>> board, int level)
 	}
 }
 
-void JBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::vector<Cell *> newCells;
+void JBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
+	std::vector<std::shared_ptr<Cell>> newCells;
 	int size = cells.size();
 	int oldposition = position;
 	if (position % 2 == 1) {

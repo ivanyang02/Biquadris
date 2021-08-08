@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "block.h"
 #include "iblock.h"
@@ -28,7 +29,7 @@ class Board {
 		Block *currentBlock;
 		char nextBlock;
 		Xwindow *window;
-		std::vector<std::vector<Cell *>>board;
+		std::vector<std::vector<std::shared_ptr<Cell>>>board;
 	public:
 		Board(int player, std::vector<char> seq, Xwindow *w = nullptr);
 		~Board();
@@ -40,7 +41,7 @@ class Board {
 		void ClearLine(int row);
 		void LevelUp();
 		void LevelDown();
-		std::vector<std::vector<Cell *>> GetBoard() const;
+		std::vector<std::vector<std::shared_ptr<Cell>>> GetBoard() const;
 		char GetCellType(int row, int col) const;
 		int GetRows() const;
 		int GetCols() const;

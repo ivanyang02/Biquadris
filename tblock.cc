@@ -1,6 +1,6 @@
 #include "tblock.h"
 
-TBlock::TBlock(std::vector<std::vector<Cell *>> board, int level)
+TBlock::TBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
 {
 	position = 0;
 	SetType('T');
@@ -16,8 +16,8 @@ TBlock::TBlock(std::vector<std::vector<Cell *>> board, int level)
 	}
 }
 
-void TBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::vector<Cell *> newCells;
+void TBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
+	std::vector<std::shared_ptr<Cell>> newCells;
 	int size = cells.size();
 	int oldposition = position;
 	if (position % 2 == 1) {
