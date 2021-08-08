@@ -50,6 +50,7 @@ bool Board::NewBlock() {
 				if (board[i][5]->GetType() == '.') {
 					board[i][5]->SetType('*');
 					toohigh = false;
+					ClearLine(i);
 					break;
 				}
 			}
