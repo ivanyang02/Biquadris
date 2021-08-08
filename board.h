@@ -26,7 +26,7 @@ class Board {
 		int score = 0;
         std::vector<char> sequence;
 		int seqIndex = 0;
-		Block *currentBlock;
+		std::shared_ptr<Block> currentBlock;
 		char nextBlock;
 		Xwindow *window;
 		std::vector<std::vector<std::shared_ptr<Cell>>>board;
