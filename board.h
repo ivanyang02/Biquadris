@@ -26,6 +26,7 @@ class Board {
         std::vector<char> sequence;
 		int seqIndex = 0;
 		Block *currentBlock;
+		char nextBlock;
 		Xwindow *window;
 		std::vector<std::vector<Cell *>>board;
 	public:
@@ -45,6 +46,7 @@ class Board {
 		int GetCols() const;
 		int GetLevel() const;
 		int GetScore() const;
+		char GetNext() const;
 		friend std::ostream &operator<<(std::ostream &out, const Board &b);		
 };
 

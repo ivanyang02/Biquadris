@@ -64,25 +64,25 @@ bool Board::NewBlock() {
 bool Board::AddBlock(char type) {
 	Block *newBlock;
 	try {
-		if (type == 'I') {
+		if (nextBlock == 'I') {
 			IBlock *temp = new IBlock(board, currentLevel);
 			newBlock = temp;
-		} else if (type == 'J') {
+		} else if (nextBlock == 'J') {
 			JBlock *temp = new JBlock(board, currentLevel);
 			newBlock = temp;
-		} else if (type == 'L') {
+		} else if (nextBlock == 'L') {
 			LBlock *temp = new LBlock(board, currentLevel);
 			newBlock = temp;
-		} else if (type == 'O') {
+		} else if (nextBlock == 'O') {
 			OBlock *temp = new OBlock(board, currentLevel);
 			newBlock = temp;
-		} else if (type == 'S') {
+		} else if (nextBlock == 'S') {
 			SBlock *temp = new SBlock(board, currentLevel);
 			newBlock = temp;
-		} else if (type == 'Z') {
+		} else if (nextBlock == 'Z') {
 			ZBlock *temp = new ZBlock(board, currentLevel);
 			newBlock = temp;
-		} else if (type == 'T') {
+		} else if (nextBlock == 'T') {
 			TBlock *temp = new TBlock(board, currentLevel);
 			newBlock = temp;
 		}
@@ -91,6 +91,7 @@ bool Board::AddBlock(char type) {
 		return false;
 	}
 	currentBlock = newBlock;
+	nextBlock = type;
 	return true;
 }
 
@@ -192,6 +193,10 @@ int Board::GetLevel() const{
 
 int Board::GetScore() const {
 	return score;
+}
+
+char Board::GetNext() const {
+	return nextBlock;
 }
 
 std::ostream &operator<<(std::ostream &out, const Board &b) {

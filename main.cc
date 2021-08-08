@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 	Xwindow w;
 	w.SetCellSize(10, 10);
 	w.SetPlayerOffset(1, 50, 50);
-	w.SetPlayerOffset(2, 250, 50);
+	w.SetPlayerOffset(2, 280, 50);
 	w.drawBoard(18, 11);
 	//drawScreen(&w);
 	w.drawPicture("splashart.txt", 25,5);
@@ -80,11 +80,17 @@ int main(int argc, char *argv[]) {
 	string command;
 	int player = 1;
 	b[0].NewBlock();
+	b[0].NewBlock();
 	//b1.AddBlock('S');
 	b[1].NewBlock();
+	b[1].NewBlock();
+	w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
 	while(true) {
-		w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel());
-		w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel());
+		if (player == 2) {
+			w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
+		} else {
+			w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
+		}
 		if (!(cin >> command)) {
 			return 0;
 		}
@@ -105,12 +111,14 @@ int main(int argc, char *argv[]) {
 					cout << "player 2 wins" << endl;
 					break;
 				}
+				//w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
 				player = 2;
 			} else if (player == 2) {
 				if (!b[1].NewBlock()) {
 					cout << "player 1 wins" << endl;
 					break;
 				}
+				//w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
 				player = 1;
 			}
 		} else if (command == "levelup") {
