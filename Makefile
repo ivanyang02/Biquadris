@@ -1,5 +1,5 @@
-a: main.o board.o window.o block.o cell.o iblock.o jblock.o lblock.o oblock.o sblock.o zblock.o tblock.o
-	g++ -Werror=vla main.o board.o window.o block.o cell.o iblock.o jblock.o lblock.o oblock.o sblock.o zblock.o tblock.o -o a -lX11
+biquadris: main.o board.o window.o block.o cell.o iblock.o jblock.o lblock.o oblock.o sblock.o zblock.o tblock.o
+	g++ -Werror=vla main.o board.o window.o block.o cell.o iblock.o jblock.o lblock.o oblock.o sblock.o zblock.o tblock.o -o biquadris -lX11
 
 main.o: main.cc
 	g++ -c main.cc
