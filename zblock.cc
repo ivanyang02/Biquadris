@@ -17,7 +17,6 @@ ZBlock::ZBlock(std::vector<std::vector<Cell *>> board, int level)
 }
 
 void ZBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::cout << "zblockrotate " << direction << std::endl;
 	std::vector<Cell *> newCells;
 	int size = cells.size();
 	if (vertical) {

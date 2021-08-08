@@ -17,7 +17,6 @@ JBlock::JBlock(std::vector<std::vector<Cell *>> board, int level)
 }
 
 void JBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::cout << "jblockrotate " << direction << std::endl;
 	std::vector<Cell *> newCells;
 	int size = cells.size();
 	int oldposition = position;

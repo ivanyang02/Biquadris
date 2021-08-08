@@ -17,7 +17,6 @@ TBlock::TBlock(std::vector<std::vector<Cell *>> board, int level)
 }
 
 void TBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::cout << "tblockrotate " << direction << std::endl;
 	std::vector<Cell *> newCells;
 	int size = cells.size();
 	int oldposition = position;

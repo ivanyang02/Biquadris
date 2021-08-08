@@ -17,7 +17,6 @@ SBlock::SBlock(std::vector<std::vector<Cell *>> board, int level)
 }
 
 void SBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
-	std::cout << "sblockrotate " << direction << std::endl;
 	std::vector <Cell *> newCells;
 	int size = cells.size();
 	if (vertical) {
