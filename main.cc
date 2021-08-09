@@ -126,9 +126,9 @@ int main(int argc, char *argv[]) {
 		} else if (command == "leveldown") {
 			b[player - 1].LevelDown();
 		} else if (command == "norandom") {
-		
+
 		} else if (command == "random") {
-		
+
 		} else if (command == "sequence") {
 		
 		} else if (command == "restart") {
