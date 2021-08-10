@@ -62,28 +62,28 @@ bool Board::NewBlock() {
 }
 
 bool Board::AddBlock(char type) {
-	std::shared_ptr<Block> newBlock;
+	Block *newBlock;
 	try {
 		if (nextBlock == 'I') {
-			std::shared_ptr<IBlock> temp = std::make_shared<IBlock>(board, currentLevel);
+			IBlock *temp = new IBlock(board, currentLevel);
 			newBlock = temp;
 		} else if (nextBlock == 'J') {
-			std::shared_ptr<JBlock> temp = std::make_shared<JBlock>(board, currentLevel);
+			JBlock *temp = new JBlock(board, currentLevel);
 			newBlock = temp;
 		} else if (nextBlock == 'L') {
-			std::shared_ptr<LBlock> temp = std::make_shared<LBlock>(board, currentLevel);
+			LBlock *temp = new LBlock(board, currentLevel);
 			newBlock = temp;
 		} else if (nextBlock == 'O') {
-			std::shared_ptr<OBlock> temp = std::make_shared<OBlock>(board, currentLevel);
+			OBlock *temp = new OBlock(board, currentLevel);
 			newBlock = temp;
 		} else if (nextBlock == 'S') {
-			std::shared_ptr<SBlock> temp = std::make_shared<SBlock>(board, currentLevel);
+			SBlock *temp = new SBlock(board, currentLevel);
 			newBlock = temp;
 		} else if (nextBlock == 'Z') {
-			std::shared_ptr<ZBlock> temp = std::make_shared<ZBlock>(board, currentLevel);
+			ZBlock *temp = new ZBlock(board, currentLevel);
 			newBlock = temp;
 		} else if (nextBlock == 'T') {
-			std::shared_ptr<TBlock> temp = std::make_shared<TBlock>(board, currentLevel);
+			TBlock *temp = new TBlock(board, currentLevel);
 			newBlock = temp;
 		}
 	} catch (OccupiedCell e) {
