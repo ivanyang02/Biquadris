@@ -28,9 +28,9 @@ class Xwindow {
 	unsigned long colours[10];
 
 	public:
-	Xwindow(int width=500, int height=500);  // Constructor; displays the window.
+	Xwindow(int width, int height);  // Constructor; displays the window.
 	~Xwindow();                              // Destructor; destroys the window.
-
+	
 	enum {White=0, Black, Red, Green, Blue, Orange, Yellow, Purple, Cyan, Brown}; // Available colours.
 
 	void fillRectangle(int x, int y, int width, int height, int colour=Black);

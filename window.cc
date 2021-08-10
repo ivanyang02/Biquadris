@@ -13,7 +13,6 @@ Xwindow::Xwindow(int width, int height):
 	screenWidth{width},
 	screenHeight{height}
 {
-
 	d = XOpenDisplay(NULL);
 	if (d == NULL) {
 		cerr << "Cannot open display" << endl;
@@ -49,6 +48,7 @@ Xwindow::Xwindow(int width, int height):
 	XSynchronize(d,True);
 
 	usleep(1000);
+
 }
 
 Xwindow::~Xwindow() {
