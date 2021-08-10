@@ -2,7 +2,6 @@
 #define _BLOCK_H_
 
 #include <vector>
-#include <memory>
 
 #include "cell.h"
 
@@ -13,7 +12,7 @@ class Block {
 	protected:
 		int cornerRow;
 		int cornerCol;
-		std::vector<std::shared_ptr<Cell>> cells;
+		std::vector<Cell *> cells;
 	public:
 		//virtual Block(char type, Cell *board[18][11]) = 0;
 		virtual ~Block();
@@ -23,11 +22,11 @@ class Block {
 		virtual void SetLevel(int level);
 		virtual void SetType(char type);
 		virtual void SetPosition(int row, int col);
-		virtual void AddCell(std::shared_ptr<Cell> cell);
-		virtual void RemoveCell(std::shared_ptr<Cell> cell);
-		virtual bool Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board);
-		virtual void Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) = 0;
-		virtual void Drop(std::vector<std::vector<std::shared_ptr<Cell>>> board);
+		virtual void AddCell(Cell *cell);
+		virtual void RemoveCell(Cell *cell);
+		virtual bool Move(char direction, std::vector<std::vector<Cell *>> board);
+		virtual void Rotate(char direction, std::vector<std::vector<Cell *>> board) = 0;
+		virtual void Drop(std::vector<std::vector<Cell *>> board);
 };
 
 #endif

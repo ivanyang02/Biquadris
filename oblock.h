@@ -3,14 +3,13 @@
 
 #include <iostream>
 #include <vector>
-#include <memory>
 
 #include "block.h"
 
 class OBlock : public Block {
 	public:
-		OBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level);
-		void Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) override;
+		OBlock(std::vector<std::vector<Cell *>> board, int level);
+		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
 
 #endif

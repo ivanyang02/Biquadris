@@ -5,16 +5,21 @@ Board::Board(int player, std::vector<char> seq, Xwindow *w):
 	player{player},
 	sequence{seq}
 {
-	board = std::vector<std::vector<std::shared_ptr<Cell>>>(rows + extra);
+	board = std::vector<std::vector<Cell *>>(rows + extra);
 	for (int i = 0; i < rows + extra; i++) {
-		board[i] = std::vector<std::shared_ptr<Cell>>(cols);
+		board[i] = std::vector<Cell *>(cols);
 		for (int j = 0; j < cols; j++) {
-			board[i][j] = std::make_shared<Cell>(player, i, j, w);
+			board[i][j] = new Cell(player, i, j, w);
 		}
 	}
 }
 
 Board::~Board() {
+	for (int i = 0; i < rows + extra; i++) {
+		for (int j = 0; j < cols; j++) {
+			delete board[i][j];
+		}
+	}
 }
 
 bool Board::NewBlock() {
@@ -166,7 +171,7 @@ void Board::LevelDown() {
 	if (currentLevel > 0) --currentLevel;
 }
 
-std::vector<std::vector<std::shared_ptr<Cell>>> Board::GetBoard() const {
+std::vector<std::vector<Cell *>> Board::GetBoard() const {
 	return board;
 }
 

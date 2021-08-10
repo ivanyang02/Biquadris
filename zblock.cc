@@ -1,6 +1,6 @@
 #include "zblock.h"
 
-ZBlock::ZBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
+ZBlock::ZBlock(std::vector<std::vector<Cell *>> board, int level)
 {
 	vertical = false;
 	SetType('Z');
@@ -16,8 +16,8 @@ ZBlock::ZBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
 	}
 }
 
-void ZBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
-	std::vector<std::shared_ptr<Cell>> newCells;
+void ZBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
+	std::vector<Cell *> newCells;
 	int size = cells.size();
 	if (vertical) {
 		if (cornerCol + 2 >= 11) {

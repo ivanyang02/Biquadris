@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
 
 //#include "cell.h"
 //#include "board.h"
@@ -41,7 +40,7 @@ class Xwindow {
 	void SetPlayerOffset(int player, int x, int y);
 	void fillCell(int player, int x, int y, char type);
 	void drawBoard(int rows, int cols, int level1 = 0, int level2 = 0);
-	void updateBoard(int player, const std::vector<std::vector<std::shared_ptr<Cell>>> &b, int rows, int cols, int score, int level, char next);
+	void updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next);
 	void drawNext(int player, char type);
 	void drawPicture(std::string filename, int x, int y);
 	unsigned long RGB(int r, int g, int b);

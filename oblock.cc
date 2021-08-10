@@ -1,6 +1,6 @@
 #include "oblock.h"
 
-OBlock::OBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
+OBlock::OBlock(std::vector<std::vector<Cell *>> board, int level)
 {
 	SetType('O');
 	SetLevel(level);
@@ -15,5 +15,5 @@ OBlock::OBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
 	}
 }
 
-void OBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
+void OBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
 }

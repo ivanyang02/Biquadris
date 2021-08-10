@@ -30,12 +30,12 @@ void Block::SetPosition(int row, int col) {
 	cornerCol = col;
 }
 
-void Block::AddCell(std::shared_ptr<Cell> cell) {
+void Block::AddCell(Cell *cell) {
 	cell->AddCell(type, this);
 	cells.push_back(cell);
 }
 
-void Block::RemoveCell(std::shared_ptr<Cell> cell) {
+void Block::RemoveCell(Cell *cell) {
 	cell->SetType('.');
 	cell->SetOwner(nullptr);
 	for (int i = 0; i < cells.size(); ++i) {
@@ -46,12 +46,12 @@ void Block::RemoveCell(std::shared_ptr<Cell> cell) {
 	}
 }
 
-bool Block::Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
-	std::vector<std::shared_ptr<Cell>> oldCells;
-	std::vector<std::shared_ptr<Cell>> sameCells;
-	std::vector<std::shared_ptr<Cell>> newCells;
-	std::shared_ptr<Cell> current;
-	std::shared_ptr<Cell> next;
+bool Block::Move(char direction, std::vector<std::vector<Cell *>> board) {
+	std::vector<Cell *> oldCells;
+	std::vector<Cell *> sameCells;
+	std::vector<Cell *> newCells;
+	Cell *current;
+	Cell *next;
 	int row;
 	int col;
 	size_t boardcols = board[0].size();
@@ -117,6 +117,6 @@ bool Block::Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>>
 	return true;
 }
 
-void Block::Drop(std::vector<std::vector<std::shared_ptr<Cell>>> board) {
+void Block::Drop(std::vector<std::vector<Cell *>> board) {
 	while (Move('d', board));
 }

@@ -1,6 +1,6 @@
 #include "lblock.h"
 
-LBlock::LBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
+LBlock::LBlock(std::vector<std::vector<Cell *>> board, int level)
 {
 	position = 0;
 	SetType('L');
@@ -16,8 +16,8 @@ LBlock::LBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level)
 	}
 }
 
-void LBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
-	std::vector<std::shared_ptr<Cell>> newCells;
+void LBlock::Rotate(char direction, std::vector<std::vector<Cell *>> board) {
+	std::vector<Cell *> newCells;
 	int size = cells.size();
 	int oldposition = position;
 	if (position % 2 == 1) {

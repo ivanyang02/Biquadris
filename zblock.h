@@ -3,15 +3,14 @@
 
 #include <iostream>
 #include <vector>
-#include <memory>
 
 #include "block.h"
 
 class ZBlock : public Block {
 	bool vertical;
 	public:
-		ZBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level);
-		void Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) override;
+		ZBlock(std::vector<std::vector<Cell *>> board, int level);
+		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
 
 #endif
