@@ -88,9 +88,9 @@ int main(int argc, char *argv[]) {
 	w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
 	while(true) {
 		if (player == 1) {
-			w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
+			w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), '0');
 		} else {
-			w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
+			w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), '0');
 		}
 		if (!(cin >> command)) {
 			return 0;

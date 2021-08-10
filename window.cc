@@ -161,7 +161,9 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<std::shared_
 	}
 	int x;
 	int y;
-	drawNext(player, next);
+	if (next != '0') {
+		drawNext(player, next);
+	}
 	if (player == 1) {
 		x = p1X + (cols + 6) * width;
 		fillRectangle(x, screenHeight - (p1Y + rows * height), 50, 30, Xwindow::White);
