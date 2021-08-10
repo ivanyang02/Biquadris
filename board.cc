@@ -167,58 +167,6 @@ void Board::ClearLine(int row) {
 				up++;
 			}
 		} 
-
-	return;
-
-	int lineCleared = 0;
-	int count = 0;
-	int movedown[4] = {0};
-	for (int i = 0; i < 4; ++i) {
-		int clear = 1;
-		for (int j = 0; j < cols; ++j) {
-			if (board[row + i][j]->GetType() == '.') {
-				clear = 0;
-				movedown[count] = i - count;
-				++count;
-				break;
-			}
-		}
-		lineCleared += clear;
-	}
-
-	if (lineCleared > 0) {
-		score += (lineCleared + currentLevel) * (lineCleared + currentLevel);
-		for (int i = 0; i < rows - row - lineCleared; ++i) {
-			int up = (i >= (4 - lineCleared) ? lineCleared : movedown[i]);
-			for (int j = 0; j < cols; ++j) {
-				if (board[row + i][j]->GetType() != '.' || board[row + i + up][j]->GetType() != '.') {
-					Block *curOwner = board[row + i][j]->GetOwner();
-					Block *newOwner = board[row + i + up][j]->GetOwner();
-					if (curOwner != nullptr) {
-						curOwner->RemoveCell(board[row + i][j]);
-					} else {
-						board[row + i][j]->SetType('.');
-					}
-					if (newOwner != nullptr) {
-						newOwner->RemoveCell(board[row + i + up][j]);
-						newOwner->AddCell(board[row + i][j]);
-					} else if (board[row + i + up][j]->GetType() == '*') {
-						board[row + i + up][j]->SetType('.');
-						board[row + i][j]->SetType('*');
-					}
-					if (curOwner != nullptr && curOwner->GetCellsCount() == 0) {
-						score += (curOwner->GetLevel() + 1) * (curOwner->GetLevel() + 1);
-					}
-				}
-			}
-		}
-	    for (int i = rows - lineCleared; i < rows; ++i) {
-			for (int j = 0; j < cols; ++j) {
-				board[i][j]->SetType('.');
-				board[i][j]->SetOwner(nullptr);
-			}
-		}
-	}
 }
 
 void Board::LevelUp() {
