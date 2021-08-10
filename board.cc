@@ -112,6 +112,64 @@ void Board::Drop() {
 }
 
 void Board::ClearLine(int row) {
+	std::vector<int> lines;
+	bool full;
+	for (int i = 0; i < 4; i++) {
+		full = true;
+		for (int j = 0; j < cols; j++) {
+			if (board[row + i][j]->GetType() == '.') {
+				full = false;
+				break;
+			}
+		}
+		if (full) {
+			lines.push_back(i);
+		}
+	}
+	int size = lines.size();
+	if (size > 0) {
+		score += (size + currentLevel) * (size + currentLevel);
+	}
+	bool linetoclear;
+	int up = 0;
+		for (int i = 0; i < 4; i++) {
+			linetoclear = false;
+			for (int j = 0; j < size; j++) {
+				if (lines[j] == i) {
+					linetoclear = true;
+				}
+			}
+			if (linetoclear) {
+				for (int j = 0; j < cols; j++) {
+					Block *current = board[row + up][j]->GetOwner();
+					if (current != nullptr) {
+						current->RemoveCell(board[row + up][j]);
+						if (current->GetCellsCount() == 0) {
+							score += (current->GetLevel() + 1) * (current->GetLevel() + 1);
+						}
+					}
+					board[row + up][j]->SetType('.');
+					
+				}
+				for (int j = row + 1 + up; j < rows; j++) {
+					for (int k = 0; k < cols; k++) {
+						Block *current = board[j][k]->GetOwner();
+						if (current != nullptr) {
+							current->RemoveCell(board[j][k]);
+							current->AddCell(board[j - 1][k]);
+						} else if (board[j][k]->GetType() == '*') {
+							board[j][k]->SetType('.');
+							board[j - 1][k] ->SetType('*');
+						}
+					}
+				}
+			} else {
+				up++;
+			}
+		} 
+
+	return;
+
 	int lineCleared = 0;
 	int count = 0;
 	int movedown[4] = {0};
