@@ -85,8 +85,9 @@ int main(int argc, char *argv[]) {
 	b[1].NewBlock();
 	b[1].NewBlock();
 	w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
+	w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
 	while(true) {
-		if (player == 2) {
+		if (player == 1) {
 			w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
 		} else {
 			w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
@@ -111,14 +112,14 @@ int main(int argc, char *argv[]) {
 					cout << "player 2 wins" << endl;
 					break;
 				}
-				//w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
+				w.updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
 				player = 2;
 			} else if (player == 2) {
 				if (!b[1].NewBlock()) {
 					cout << "player 1 wins" << endl;
 					break;
 				}
-				//w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
+				w.updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
 				player = 1;
 			}
 		} else if (command == "levelup") {
