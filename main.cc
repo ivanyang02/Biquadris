@@ -175,9 +175,9 @@ int main(int argc, char *argv[]) {
 			} else {
 				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), '0', b[1]->GetBlind());
 			}
-		} else {
-			printBoard(b);
 		}
+		printBoard(b);
+		
 		if (command == "heavydrop") {
 			command = "drop";
 		} else {
@@ -296,9 +296,6 @@ int main(int argc, char *argv[]) {
 				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind());
 				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[0]->GetBlind());
 			}
-		} else if (command == "p") {
-			printBoard(b);
-			//w->updateBoard(b1, 50, 50);
 		} else if ( command == "quit") {
 			break;
 		}
