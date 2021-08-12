@@ -107,7 +107,12 @@ bool Board::AddBlock(char type, int row, int col) {
 }
 
 bool Board::ChangeBlock(char type) {
-	return true;
+	int r = currentBlock->GetCoRow();
+	int c = currentBlock->GetCoCol();
+	currentBlock->RemoveAll();
+	delete currentBlock;
+	if (AddBlock(type, r, c)) return true;
+	return false;
 }
 
 void Board::Move(char direction) {

@@ -13,6 +13,10 @@ int Block::GetCoRow() {
 	return cornerRow;
 }
 
+int Block::GetCoCol() {
+	return cornerCol;
+}
+
 int Block::GetCellsCount() {
 	return cells.size();
 }
@@ -43,6 +47,15 @@ void Block::RemoveCell(Cell *cell) {
 			cells.erase(cells.begin() + i);
 			break;
 		}
+	}
+}
+
+void Block::RemoveAll() {
+	int len = cells.size();
+	for (int i = len - 1; i >= 0; --i) {
+		cells[i]->SetType('.');
+		cells[i]->SetOwner(nullptr);
+		cells.pop_back();
 	}
 }
 

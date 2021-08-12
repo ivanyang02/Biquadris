@@ -18,12 +18,14 @@ class Block {
 		virtual ~Block();
 		virtual int GetLevel();
 		virtual int GetCoRow();
+		virtual int GetCoCol();
 		virtual int GetCellsCount();
 		virtual void SetLevel(int level);
 		virtual void SetType(char type);
 		virtual void SetPosition(int row, int col);
 		virtual void AddCell(Cell *cell);
 		virtual void RemoveCell(Cell *cell);
+		virtual void RemoveAll();
 		virtual bool Move(char direction, std::vector<std::vector<Cell *>> board);
 		virtual void Rotate(char direction, std::vector<std::vector<Cell *>> board) = 0;
 		virtual void Drop(std::vector<std::vector<Cell *>> board);

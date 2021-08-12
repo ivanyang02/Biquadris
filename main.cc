@@ -172,6 +172,17 @@ int main(int argc, char *argv[]) {
 					} else if (command == "heavy") {
 						b[player % 2]->SetHeavy();
 						break;
+					} else if (command == "force") {
+						char type;
+						cin >> type;
+						if (type == 'I' || type == 'J' || type == 'L' || type == 'Z' || type == 'S' || type == 'O' || type == 'T') {
+							if (!b[player % 2]->ChangeBlock(type)) {
+							cout << "player " << player - 1 << " wins" << endl;
+							}
+							break;
+						} else {
+							cout << "You monkey that's not a valid type, stop being useless and try again" << endl;
+						}
 					} else {
 						cout << "Invalid special action" << endl;
 					}
