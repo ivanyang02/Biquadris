@@ -7,10 +7,11 @@
 #include "block.h"
 
 class IBlock : public Block {
-	bool vertical;
+	bool vertical; //True if the IBlock is vertical, false if horizontal
 	public:
-		IBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col);
-		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
+		IBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col); //IBlock constructor
+		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;	
+		//Rotates the IBlock clockwise and counterclockwise according to the direction on the given board
 };
 
 #endif
