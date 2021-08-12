@@ -1,16 +1,16 @@
 #include "lblock.h"
 
-LBlock::LBlock(std::vector<std::vector<Cell *>> board, int level)
+LBlock::LBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col)
 {
 	position = 0;
 	SetType('L');
 	SetLevel(level);
-	SetPosition(14, 0);
+	SetPosition(row, col);
 	try {
-	AddCell(board[14][0]);
-	AddCell(board[14][1]);
-	AddCell(board[14][2]);
-	AddCell(board[15][2]);
+	AddCell(board[row][col]);
+	AddCell(board[row][col + 1]);
+	AddCell(board[row][col + 2]);
+	AddCell(board[row + 1][col + 2]);
 	} catch (OccupiedCell e) {
 		throw OccupiedCell{};
 	}

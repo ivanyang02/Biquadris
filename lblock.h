@@ -9,7 +9,7 @@
 class LBlock : public Block {
 	int position;
 	public:
-		LBlock(std::vector<std::vector<Cell *>> board, int level);
+		LBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
 

@@ -8,7 +8,7 @@
 
 class OBlock : public Block {
 	public:
-		OBlock(std::vector<std::vector<Cell *>> board, int level);
+		OBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
 

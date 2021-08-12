@@ -1,15 +1,15 @@
 #include "oblock.h"
 
-OBlock::OBlock(std::vector<std::vector<Cell *>> board, int level)
+OBlock::OBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col)
 {
 	SetType('O');
 	SetLevel(level);
-	SetPosition(14, 0);
+	SetPosition(row, col);
 	try {
-	AddCell(board[15][0]);
-	AddCell(board[15][1]);
-	AddCell(board[14][0]);
-	AddCell(board[14][1]);
+	AddCell(board[row + 1][col]);
+	AddCell(board[row + 1][col + 1]);
+	AddCell(board[row][col]);
+	AddCell(board[row][col + 1]);
 	} catch (OccupiedCell e) {
 		throw OccupiedCell{};
 	}

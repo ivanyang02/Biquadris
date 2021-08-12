@@ -9,7 +9,7 @@
 class SBlock : public Block {
 	bool vertical;
 	public:
-		SBlock(std::vector<std::vector<Cell *>> board, int level);
+		SBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
 

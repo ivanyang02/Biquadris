@@ -35,7 +35,7 @@ class Board {
 		Board(int player, std::vector<char> seq, Xwindow *w);
 		~Board();
 		bool NewBlock();
-		bool AddBlock(char type);
+		bool AddBlock(char type, int row, int col);
 		void Move(char direction);
 		void Rotate(char direction);
 		bool Drop();

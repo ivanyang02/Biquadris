@@ -9,7 +9,7 @@
 class TBlock : public Block {
 	int position;
 	public:
-		TBlock(std::vector<std::vector<Cell *>> board, int level);
+		TBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col);
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
 };
 

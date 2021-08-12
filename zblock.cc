@@ -1,16 +1,16 @@
 #include "zblock.h"
 
-ZBlock::ZBlock(std::vector<std::vector<Cell *>> board, int level)
+ZBlock::ZBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col)
 {
 	vertical = false;
 	SetType('Z');
 	SetLevel(level);
-	SetPosition(14, 0);
+	SetPosition(row, col);
 	try {
-	AddCell(board[15][0]);
-	AddCell(board[15][1]);
-	AddCell(board[14][1]);
-	AddCell(board[14][2]);
+	AddCell(board[row + 1][col]);
+	AddCell(board[row + 1][col + 1]);
+	AddCell(board[row][col + 1]);
+	AddCell(board[row][col + 2]);
 	} catch (OccupiedCell e) {
 		throw OccupiedCell{};
 	}

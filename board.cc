@@ -67,33 +67,33 @@ bool Board::NewBlock() {
 			if (toohigh) return false;
 		}
 	}
-	if (!AddBlock(type)) return false;
+	if (!AddBlock(type, 14, 0)) return false;
 	return true;
 }
 
-bool Board::AddBlock(char type) {
+bool Board::AddBlock(char type, int row, int col) {
 	Block *newBlock;
 	try {
 		if (nextBlock == 'I') {
-			IBlock *temp = new IBlock(board, currentLevel);
+			IBlock *temp = new IBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (nextBlock == 'J') {
-			JBlock *temp = new JBlock(board, currentLevel);
+			JBlock *temp = new JBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (nextBlock == 'L') {
-			LBlock *temp = new LBlock(board, currentLevel);
+			LBlock *temp = new LBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (nextBlock == 'O') {
-			OBlock *temp = new OBlock(board, currentLevel);
+			OBlock *temp = new OBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (nextBlock == 'S') {
-			SBlock *temp = new SBlock(board, currentLevel);
+			SBlock *temp = new SBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (nextBlock == 'Z') {
-			ZBlock *temp = new ZBlock(board, currentLevel);
+			ZBlock *temp = new ZBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (nextBlock == 'T') {
-			TBlock *temp = new TBlock(board, currentLevel);
+			TBlock *temp = new TBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		}
 	} catch (OccupiedCell e) {
