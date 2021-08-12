@@ -131,6 +131,22 @@ void Board::Rotate(char direction) {
 	}
 }
 
+void Board::HoldBlock() {
+	if (hold == '0') {
+		hold = currentBlock->GetType();
+        currentBlock->RemoveAll();
+		delete currentBlock;
+        NewBlock();
+	} else {
+		char type = currentBlock->GetType();
+		currentBlock->RemoveAll();
+		delete currentBlock;
+		AddBlock(hold, 14, 0);
+		hold = type;
+	}
+	std::cout << hold << std::endl;
+}
+
 bool Board::Drop() {
 	if (blind) blind = false;
 	if (heavy) heavy = false;
@@ -248,6 +264,10 @@ int Board::GetScore() const {
 
 char Board::GetNext() const {
 	return nextBlock;
+}
+
+char Board::GetHold() const {
+	return hold;
 }
 
 bool Board::GetBlind() const {

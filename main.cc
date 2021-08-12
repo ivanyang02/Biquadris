@@ -42,8 +42,11 @@ vector<char> printNext(char t) {
 	} else if (t == 'T') {
 		vector<char> arr{'T', 'T', 'T', ' ', ' ', 'T', ' ', ' '};
 		return arr;
-	} else {
+	} else if (t == 'O') {
 		vector<char> arr{'O', 'O', ' ', ' ', 'O', 'O', ' ', ' '};
+		return arr;
+	} else {
+		vector<char> arr{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 		return arr;
 	}
 }
@@ -70,6 +73,17 @@ void printBoard(Board **b) {
 	for (int i = 0; i < 2; ++i) {
 		for (int n = 0; n < 2; ++n) {
             vector<char> block = printNext(b[n]->GetNext());
+			for (int j = 0; j < 4; ++j) {
+	            cout << block[i * 4 + j];
+			}
+			cout << "           ";
+		}
+		cout << endl;
+	}
+    cout << "Hold:          Hold:" << endl;
+	for (int i = 0; i < 2; ++i) {
+		for (int n = 0; n < 2; ++n) {
+            vector<char> block = printNext(b[n]->GetHold());
 			for (int j = 0; j < 4; ++j) {
 	            cout << block[i * 4 + j];
 			}
@@ -165,15 +179,15 @@ int main(int argc, char *argv[]) {
 	b[1]->NewBlock();
 	b[1]->NewBlock();
 	if (!textOnly) {
-		w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind());
-		w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind());
+		w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
+		w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
 	}
 	while(true) {
 		if (!textOnly) {
 			if (player == 1) {
-				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), '0', b[0]->GetBlind());
+				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), '0', b[0]->GetBlind(), '0');
 			} else {
-				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), '0', b[1]->GetBlind());
+				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), '0', b[1]->GetBlind(), '0');
 			}
 		}
 		printBoard(b);
@@ -192,7 +206,7 @@ int main(int argc, char *argv[]) {
 				b[0]->NewBlock();
 				b[0]->NewBlock();
 				if (!textOnly) {
-					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind());
+					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), b[0]->GetHold());
 				}
 			} else if (player == 2) {
 				b[1] = new Board{2, sequence2, w};
@@ -200,7 +214,7 @@ int main(int argc, char *argv[]) {
 				b[1]->NewBlock();
 				b[1]->NewBlock();
 				if (!textOnly) {
-					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind());
+					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), b[1]->GetHold());
 				}
 			}
 		}
@@ -221,6 +235,11 @@ int main(int argc, char *argv[]) {
 			b[player - 1]->Rotate('r');
 		} else if (Substring(command, "counterclockwise") && Substring("co", command)) {
 			b[player - 1]->Rotate('l');
+		} else if (command == "hold") {
+			b[player - 1]->HoldBlock();
+			if (!textOnly) {
+				w->updateBoard(player, b[player - 1]->GetBoard(), 18, 11, b[player - 1]->GetScore(), b[player - 1]->GetLevel(), b[player - 1]->GetNext(), b[player - 1]->GetBlind(), b[player - 1]->GetHold());
+			}
 		} else if (Substring(command, "drop") && Substring("dr", command)) {
 			if (b[player - 1]->Drop()) {
 				cout << "Please enter special action" << endl;
@@ -254,7 +273,7 @@ int main(int argc, char *argv[]) {
 					cout << "type restart to restart or quit to quit and do not type anything else or i will be sad" << endl;
 				}
 				if (!textOnly) {
-					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind());
+					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
 				}
 				player = 2;
 			} else if (player == 2) {
@@ -263,7 +282,7 @@ int main(int argc, char *argv[]) {
 					cout << "type restart to restart or quit to quit and do not type anything else or i will eat your shoes" << endl;
 				}
 				if (!textOnly) {
-					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind());
+					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
 				}
 				player = 1;
 			}
@@ -293,8 +312,8 @@ int main(int argc, char *argv[]) {
 			b[1]->NewBlock();
 			b[1]->NewBlock();
 			if (!textOnly) {
-				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind());
-				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[0]->GetBlind());
+				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), b[0]->GetHold());
+				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), b[1]->GetHold());
 			}
 		} else if ( command == "quit") {
 			break;

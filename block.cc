@@ -5,6 +5,10 @@
 Block::~Block() {
 }
 
+char Block::GetType() {
+	return type;
+}
+
 int Block::GetLevel() {
 	return level;
 }

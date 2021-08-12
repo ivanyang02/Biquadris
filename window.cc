@@ -120,13 +120,15 @@ void Xwindow::drawBoard(int rows, int cols, int level1, int level2) {
 	drawString(p1X + (cols + 2) * width, screenHeight - (p1Y + (rows - 1) * height), "level:");
 	drawString(p1X + (cols + 2) * width, screenHeight - (p1Y + (rows - 3) * height), "score:");
 	drawString(p1X + (cols + 2) * width, screenHeight - (p1Y + (rows - 5) * height), "Next:");
+    drawString(p1X + (cols + 2) * width, screenHeight - (p1Y + (rows - 10) * height), "Hold:");
 	drawString(p2X + (cols + 2) * width, screenHeight - (p2Y + (rows - 1) * height), "level:");
 	drawString(p2X + (cols + 2) * width, screenHeight - (p2Y + (rows - 3) * height), "score:");
 	drawString(p2X + (cols + 2) * width, screenHeight - (p2Y + (rows - 5) * height), "Next:");
+    drawString(p2X + (cols + 2) * width, screenHeight - (p2Y + (rows - 10) * height), "Hold:");
 
 }
 
-void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next, bool blind) {
+void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next, bool blind, char hold) {
 	char data[cols * rows * width * height * 4];
 	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols * width, rows * height, 32, 0);
 	for (int i = 0; i < rows; i++) {
@@ -164,7 +166,10 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b,
 	int x;
 	int y;
 	if (next != '0') {
-		drawNext(player, next);
+		drawBlock(player, next, 11);
+	}
+	if (hold != '0') {
+		drawBlock(player, hold, 6);
 	}
 	if (player == 1) {
 		x = p1X + (cols + 6) * width;
@@ -181,53 +186,48 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b,
 	}
 }
 
-void Xwindow::drawNext(int player, char next) {
+void Xwindow::drawBlock(int player, char next, int row) {
 	if (player == 1) {
-		fillRectangle(p1X + 13 * width, screenHeight - (p1Y + 12 * height), 4 * width, 2 * height, Xwindow::White);
+		fillRectangle(p1X + 13 * width, screenHeight - (p1Y + (row + 1) * height), 4 * width, 2 * height, Xwindow::White);
 	} else {
-		fillRectangle(p2X + 13 * width, screenHeight - (p2Y + 12 * height), 4 * width, 2 * height, Xwindow::White);
+		fillRectangle(p2X + 13 * width, screenHeight - (p2Y + (row + 1) * height), 4 * width, 2 * height, Xwindow::White);
 	}
 	if (next == 'I') {
-		fillCell(player, 11, 13, next);
-		fillCell(player, 11, 14, next);
-		fillCell(player, 11, 15, next);
-		fillCell(player, 11, 16, next);
+		fillCell(player, row, 13, next);
+		fillCell(player, row, 14, next);
+		fillCell(player, row, 15, next);
+		fillCell(player, row, 16, next);
 	} else if (next == 'J') {
-		fillCell(player, 12, 13, next);
-		fillCell(player, 11, 13, next);
-		fillCell(player, 11, 14, next);
-		fillCell(player, 11, 15, next);
+		fillCell(player, row + 1, 13, next);
+		fillCell(player, row, 13, next);
+		fillCell(player, row, 14, next);
+		fillCell(player, row, 15, next);
 	} else if (next == 'L') {
-		fillCell(player, 11, 13, next);
-		fillCell(player, 11, 14, next);
-		fillCell(player, 11, 15, next);
-		fillCell(player, 12, 15, next);
+		fillCell(player, row, 13, next);
+		fillCell(player, row, 14, next);
+		fillCell(player, row, 15, next);
+		fillCell(player, row + 1, 15, next);
 	} else if (next == 'O') {
-		fillCell(player, 11, 13, next);
-		fillCell(player, 11, 14, next);
-		fillCell(player, 12, 13, next);
-		fillCell(player, 12, 14, next);
+		fillCell(player, row, 13, next);
+		fillCell(player, row, 14, next);
+		fillCell(player, row + 1, 13, next);
+		fillCell(player, row + 1, 14, next);
 	} else if (next == 'S') {
-		fillCell(player, 11, 13, next);
-		fillCell(player, 11, 14, next);
-		fillCell(player, 12, 14, next);
-		fillCell(player, 12, 15, next);
+		fillCell(player, row, 13, next);
+		fillCell(player, row, 14, next);
+		fillCell(player, row + 1, 14, next);
+		fillCell(player, row + 1, 15, next);
 	} else if (next == 'Z') {
-		fillCell(player, 12, 13, next);
-		fillCell(player, 12, 14, next);
-		fillCell(player, 11, 14, next);
-		fillCell(player, 11, 15, next);
+		fillCell(player, row + 1, 13, next);
+		fillCell(player, row + 1, 14, next);
+		fillCell(player, row, 14, next);
+		fillCell(player, row, 15, next);
 	} else if (next == 'T') {
-		fillCell(player, 12, 13, next);
-		fillCell(player, 12, 14, next);
-		fillCell(player, 11, 14, next);
-		fillCell(player, 12, 15, next);
+		fillCell(player, row + 1, 13, next);
+		fillCell(player, row + 1, 14, next);
+		fillCell(player, row, 14, next);
+		fillCell(player, row + 1, 15, next);
 	}
-
-
-
-
-
 }
 
 #include <fstream>

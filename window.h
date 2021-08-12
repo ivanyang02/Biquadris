@@ -40,8 +40,8 @@ class Xwindow {
 	void SetPlayerOffset(int player, int x, int y); //Sets the offset between the two player boards
 	void fillCell(int player, int x, int y, char type); // Draws a cell
 	void drawBoard(int rows, int cols, int level1 = 0, int level2 = 0); // Draws the board outline
-	void updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next, bool blind); // redraws the content of the board
-	void drawNext(int player, char type); // draws the next block
+	void updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next, bool blind, char hold); // redraws the content of the board
+	void drawBlock(int player, char type, int row); // draws a block on the screen
 	void drawPicture(std::string filename, int x, int y); // draws a picture
 	unsigned long RGB(int r, int g, int b); // converts 3 integers into a long for rgb value
 };

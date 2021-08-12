@@ -28,6 +28,7 @@ class Board {
         std::vector<char> sequence;
 		int seqIndex = 0;
 		Block *currentBlock;
+		char hold = '0';
 		char nextBlock;
 		Xwindow *window;
 		std::vector<std::vector<Cell *>>board;
@@ -36,11 +37,12 @@ class Board {
 		~Board(); //board destructor
 		bool NewBlock(); //generates the new type of block considering level and block sequences, and rng, and passes type into AddBlock
 		bool AddBlock(char type, int row, int col); //Given type and location, adds the proper cells to a block
-		bool ChangeBlock(char type); 
+		bool ChangeBlock(char type); //Change the currentBlock to new type of block
 		void Move(char direction); //Calls block move on the current block
 		void Rotate(char direction); //Calls block rotate on the current block
 		bool Drop(); //Calls block drop on the current block
 		bool HeavyDrop(); //Implements the special action heavy drop
+		void HoldBlock(); // Temperary hold current block or switch current block with hold
 		int ClearLine(int row); //Clears lines that are full
 		void LevelUp(); //Increases the current level
 		void LevelDown(); //Decreases the current level
@@ -51,6 +53,7 @@ class Board {
 		int GetLevel() const; //returns the level
 		int GetScore() const; //returns the score
 		char GetNext() const; //returns the type of the next block
+		char GetHold() const; //returns the type of the hold block
 		bool GetBlind() const; //returns wether the special action blind is on
 		void SetBlind(); //sets the board to blind
 		void SetHeavy(); //sets the board to heavy

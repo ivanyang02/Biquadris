@@ -15,6 +15,7 @@ class Block {
 		std::vector<Cell *> cells;
 	public:
 		virtual ~Block(); //virtual distructor for abstract class
+		virtual char GetType(); //return the type of the object instance
 		virtual int GetLevel(); //returns the level field of the object instance
 		virtual int GetCoRow(); //returns the cornerRow of the object instance
 		virtual int GetCoCol(); // returns the connerCol of the object instance
