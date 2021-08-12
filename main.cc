@@ -31,35 +31,45 @@ int main(int argc, char *argv[]) {
 	for (int i = 1; i < argc; i++) {
 		commands.push_back(argv[i]);
 	}
-	string input1 = argv[1], input2 = argv[2];
-	ifstream infile1{input1}, infile2{input2};
 
 	bool textOnly = false;
-	int seed = 0;
+	unsigned int seed = 0;
 	string cl;
 	int defaultlevel = 0;
+	bool in1override = false;
+	bool in2override = false;
+	string input1 = "";
+	string input2 = "";
 	for (int i = 0; i < argc - 1; i++) {
 		cl = commands[i];
-		if (commands[i] == "-text") {
+		if (cl == "-text") {
 			textOnly = true;
-		}
-		if (commands[i] == "-seed") {
+		} else if (cl == "-seed") {
 			++i;
 			seed = stoi(commands[i]);
-		}
-		if (commands[i] == "-scriptfile1") {
+		} else if (cl == "-scriptfile1") {
 			++i;
-			infile1.open(commands[i]);
-		}
-		if (commands[i] == "-scriptfile2") {
+			input1 = commands[i];
+			in1override = true;
+		} else if (cl == "-scriptfile2") {
 			++i;
-			infile2.open(commands[i]);
-		}
-		if (commands[i] == "-startlevel") {
+			input2 = commands[i];
+			in2override = true;
+		} else if (cl == "-startlevel") {
 			++i;
 			defaultlevel = stoi(commands[i]);
+		} else {
+			if (input1 == "") {
+				if (!in1override) {
+					input1 = commands[i];
+				}
+			} else if (!in2override) {
+				input2 = commands[i];
+			}
 		}
 	}
+	srand(seed);
+	ifstream infile1{input1}, infile2{input2};
 
 	Xwindow *w;
 	if (!textOnly) {
@@ -82,13 +92,11 @@ int main(int argc, char *argv[]) {
 	while(infile2 >> block2) {
 		sequence2.push_back(block2);
 	}
-
 	Board b[2] = {Board{1, sequence1, w}, Board{2, sequence2, w}};
 	for (int i = 0; i < defaultlevel; i++) {
 		b[0].LevelUp();
 		b[1].LevelUp();
 	}
-	
 	string command;
 	int player = 1;
 	b[0].NewBlock();

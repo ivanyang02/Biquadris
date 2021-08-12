@@ -30,7 +30,7 @@ class Board {
 		Xwindow *window;
 		std::vector<std::vector<Cell *>>board;
 	public:
-		Board(int player, std::vector<char> seq, Xwindow *w = nullptr);
+		Board(int player, std::vector<char> seq, Xwindow *w);
 		~Board();
 		bool NewBlock();
 		bool AddBlock(char type);
