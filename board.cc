@@ -263,8 +263,8 @@ void Board::SetHeavy() {
 }
 
 std::ostream &operator<<(std::ostream &out, const Board &b) {
-	std::cout << "Level: " << currentLevel << std::endl;
-	std::cout << "Score: " << score << std::endl;
+	std::cout << "Level: " << b.currentLevel << std::endl;
+	std::cout << "Score: " << b.score << std::endl;
 	std::cout << "-----------" << std::endl;
 	for (int i = b.rows + b.extra - 1; i >= 0; i--) {
 		for (int j = 0; j < b.cols; j++) {
@@ -280,3 +280,4 @@ std::ostream &operator<<(std::ostream &out, const Board &b) {
 	std::cout << "Next:" << std::endl;
 	return out;
 }
+

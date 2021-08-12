@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 #include "board.h"
 #include "window.h"
@@ -21,6 +22,63 @@ bool Substring(string a, string b) {
 	}
 	return true;
 }
+
+vector<char> printNext(char t) {
+	if (t == 'I') {
+		vector<char> arr{'I', 'I', 'I', 'I', ' ', ' ', ' ', ' '};
+		return arr;
+	} else if (t == 'J') {
+		vector<char> arr{'J', ' ', ' ', ' ', 'J', 'J', 'J', ' '};
+		return arr;
+	} else if (t == 'L') {
+		vector<char> arr{' ', ' ', 'L', ' ', 'L', 'L', 'L', ' '};
+		return arr;
+	} else if (t == 'S') {
+		vector<char> arr{' ', 'S', 'S', ' ', 'S', 'S', ' ', ' '};
+		return arr;
+	} else if (t == 'Z') {
+		vector<char> arr{'Z', 'Z', ' ', ' ', ' ', 'Z', 'Z', ' '};
+		return arr;
+	} else if (t == 'T') {
+		vector<char> arr{'T', 'T', 'T', ' ', ' ', 'T', ' ', ' '};
+		return arr;
+	} else {
+		vector<char> arr{'O', 'O', ' ', ' ', 'O', 'O', ' ', ' '};
+		return arr;
+	}
+}
+
+void printBoard(Board **b) {
+	cout << "Level: " << std::setw(4) << b[0]->GetLevel() << "    " << "Level: " << std::setw(4) << b[1]->GetLevel() << endl;
+	cout << "Score: " << std::setw(4) << b[0]->GetScore() << "    " << "Score: " << std::setw(4) << b[1]->GetScore() << endl;
+	cout << "-----------    -----------" << std::endl;
+	for (int i = b[0]->GetRows() - 1; i >= 0; i--) {
+	    for (int n = 0; n < 2; ++n) {
+			for (int j = 0; j < b[0]->GetCols(); j++) {
+				if (b[n]->GetBlind() && i >= 2 && i <= 8 && j >= 2 && j <= 11) {
+					cout << '?';
+				} else {
+					cout << b[n]->GetCellType(i, j);
+				}
+			}
+			cout << "    ";
+		}
+		cout << endl;
+	}
+    cout << "-----------    -----------" << endl;
+	cout << "Next:          Next:" << endl;
+	for (int i = 0; i < 2; ++i) {
+		for (int n = 0; n < 2; ++n) {
+            vector<char> block = printNext(b[n]->GetNext());
+			for (int j = 0; j < 4; ++j) {
+	            cout << block[i * 4 + j];
+			}
+			cout << "           ";
+		}
+		cout << endl;
+	}
+}
+
 
 int main(int argc, char *argv[]) {
 	if (argc < 3) {
@@ -117,6 +175,8 @@ int main(int argc, char *argv[]) {
 			} else {
 				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), '0', b[1]->GetBlind());
 			}
+		} else {
+			printBoard(b);
 		}
 		if (command == "heavydrop") {
 			command = "drop";
@@ -127,25 +187,24 @@ int main(int argc, char *argv[]) {
 		}
 		if (command == "reee") {
 			if (player == 1) {
-			b[0] = new Board{1, sequence1, w};
-			player = 1;
-			b[0]->NewBlock();
-			b[0]->NewBlock();
-			if (!textOnly) {
-			w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind());
+				b[0] = new Board{1, sequence1, w};
+				player = 1;
+				b[0]->NewBlock();
+				b[0]->NewBlock();
+				if (!textOnly) {
+					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind());
+				}
+			} else if (player == 2) {
+				b[1] = new Board{2, sequence2, w};
+				player = 2;
+				b[1]->NewBlock();
+				b[1]->NewBlock();
+				if (!textOnly) {
+					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind());
+				}
 			}
-			}
-			if (player == 2) {
-			b[1] = new Board{2, sequence2, w};
-			player = 2;
-			b[1]->NewBlock();
-			b[1]->NewBlock();
-			if (!textOnly) {
-			w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind());
-			}
-			}
-
 		}
+
 		if (Substring(command, "left") && Substring("lef", command)) {
 			b[player - 1]->Move('l');
 			if (b[player - 1]->HeavyDrop()) {
@@ -238,7 +297,7 @@ int main(int argc, char *argv[]) {
 				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[0]->GetBlind());
 			}
 		} else if (command == "p") {
-			cout << b[0] << endl << b[1] << endl;
+			printBoard(b);
 			//w->updateBoard(b1, 50, 50);
 		} else if ( command == "quit") {
 			break;
