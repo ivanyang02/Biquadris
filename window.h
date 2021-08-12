@@ -33,17 +33,17 @@ class Xwindow {
 	
 	enum {White=0, Black, Red, Green, Blue, Orange, Yellow, Purple, Cyan, Brown}; // Available colours.
 
-	void fillRectangle(int x, int y, int width, int height, int colour=Black);
-	void drawString(int x, int y, std::string msg);
+	void fillRectangle(int x, int y, int width, int height, int colour=Black); // Draws a rectangle.
+	void drawString(int x, int y, std::string msg);  // Draws a string
 	
 	void SetCellSize(int width, int height);
 	void SetPlayerOffset(int player, int x, int y);
-	void fillCell(int player, int x, int y, char type);
-	void drawBoard(int rows, int cols, int level1 = 0, int level2 = 0);
-	void updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next, bool blind);
-	void drawNext(int player, char type);
-	void drawPicture(std::string filename, int x, int y);
-	unsigned long RGB(int r, int g, int b);
+	void fillCell(int player, int x, int y, char type); // Draws a cell
+	void drawBoard(int rows, int cols, int level1 = 0, int level2 = 0); // Draws the board outline
+	void updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next, bool blind); // redraws the content of the board
+	void drawNext(int player, char type); // draws the next block
+	void drawPicture(std::string filename, int x, int y); // draws a picture
+	unsigned long RGB(int r, int g, int b); // converts 3 integers into a long for rgb value
 };
 
 #endif
