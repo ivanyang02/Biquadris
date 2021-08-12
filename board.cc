@@ -114,13 +114,17 @@ void Board::Rotate(char direction) {
 	currentBlock->Rotate(direction, board);
 }
 
-void Board::Drop() {
+bool Board::Drop() {
+	if (blind) blind = false;
 	currentBlock->Drop(board);
-	ClearLine(currentBlock->GetCoRow());
 	if (currentLevel == 4) ++level4Count;
+	if (ClearLine(currentBlock->GetCoRow()) >= 2) {
+		return true;
+	}
+	return false;
 }
 
-void Board::ClearLine(int row) {
+int Board::ClearLine(int row) {
 	std::vector<int> lines;
 	bool full;
 	for (int i = 0; i < 4; i++) {
@@ -176,7 +180,8 @@ void Board::ClearLine(int row) {
 			} else {
 				up++;
 			}
-		} 
+		}
+	return lines.size();
 }
 
 void Board::LevelUp() {
@@ -213,6 +218,14 @@ int Board::GetScore() const {
 
 char Board::GetNext() const {
 	return nextBlock;
+}
+
+bool Board::GetBlind() const {
+	return blind;
+}
+
+void Board::SetBlind() {
+	blind = true;
 }
 
 std::ostream &operator<<(std::ostream &out, const Board &b) {

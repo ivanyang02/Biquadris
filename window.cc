@@ -126,7 +126,7 @@ void Xwindow::drawBoard(int rows, int cols, int level1, int level2) {
 
 }
 
-void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next) {
+void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b, int rows, int cols, int score, int level, char next, bool blind) {
 	char data[cols * rows * width * height * 4];
 	XImage *newimage = XCreateImage(d, DefaultVisual(d, 0), DefaultDepth(d, 0), ZPixmap, 0, data, cols * width, rows * height, 32, 0);
 	for (int i = 0; i < rows; i++) {
@@ -136,6 +136,8 @@ void Xwindow::updateBoard(int player, const std::vector<std::vector<Cell *>> &b,
 					int yPos = (rows * height - 1) - (i * height + k);
 	if (k == height - 1 || l == width - 1) {
 		XPutPixel(newimage, j * width + l, yPos, RGB(200,200,200));
+	} else if (blind && i >= 2 && i <= 11 && j >= 2 && j <=8) {
+		XPutPixel(newimage, j * width + l, yPos, RGB(50,50,50));
 	} else if (b[i][j]->GetType() == '*') {
 	XPutPixel(newimage, j * width + l, yPos, colours[Brown]);
 	} else if (b[i][j]->GetType() == '.') {
