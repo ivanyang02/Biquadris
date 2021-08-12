@@ -263,11 +263,20 @@ void Board::SetHeavy() {
 }
 
 std::ostream &operator<<(std::ostream &out, const Board &b) {
+	std::cout << "Level: " << currentLevel << std::endl;
+	std::cout << "Score: " << score << std::endl;
+	std::cout << "-----------" << std::endl;
 	for (int i = b.rows + b.extra - 1; i >= 0; i--) {
 		for (int j = 0; j < b.cols; j++) {
-			std::cout << b.GetCellType(i, j);
+			if (b.blind && i >= 2 && i <= 8 && j >= 2 && j <= 11) {
+				std::cout << '?';
+			} else {
+				std::cout << b.GetCellType(i, j);
+			}
 		}
 		std:: cout << std::endl;
 	}
+    std::cout << "-----------" << std::endl;
+	std::cout << "Next:" << std::endl;
 	return out;
 }
