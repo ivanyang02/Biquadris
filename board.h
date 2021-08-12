@@ -24,6 +24,7 @@ class Board {
 		int level4Count = 0;
 		int score = 0;
 		bool blind = false;
+		bool heavy = false;
         std::vector<char> sequence;
 		int seqIndex = 0;
 		Block *currentBlock;
@@ -38,6 +39,7 @@ class Board {
 		void Move(char direction);
 		void Rotate(char direction);
 		bool Drop();
+		bool HeavyDrop();
 		int ClearLine(int row);
 		void LevelUp();
 		void LevelDown();
@@ -50,6 +52,7 @@ class Board {
 		char GetNext() const;
 		bool GetBlind() const;
 		void SetBlind();
+		void SetHeavy();
 		friend std::ostream &operator<<(std::ostream &out, const Board &b);		
 };
 

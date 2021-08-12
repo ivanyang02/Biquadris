@@ -116,10 +116,23 @@ void Board::Rotate(char direction) {
 
 bool Board::Drop() {
 	if (blind) blind = false;
+	if (heavy) heavy = false;
 	currentBlock->Drop(board);
 	if (currentLevel == 4) ++level4Count;
 	if (ClearLine(currentBlock->GetCoRow()) >= 2) {
 		return true;
+	}
+	return false;
+}
+
+bool Board::HeavyDrop() {
+	if (heavy) {
+		int r = currentBlock->GetCoRow();
+		currentBlock->Move('d', board);
+        currentBlock->Move('d', board);
+		if (r - 2 < currentBlock->GetCoRow()) {
+		   return true;
+		}
 	}
 	return false;
 }
@@ -226,6 +239,10 @@ bool Board::GetBlind() const {
 
 void Board::SetBlind() {
 	blind = true;
+}
+
+void Board::SetHeavy() {
+	heavy = true;
 }
 
 std::ostream &operator<<(std::ostream &out, const Board &b) {

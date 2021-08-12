@@ -118,8 +118,12 @@ int main(int argc, char *argv[]) {
 				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), '0', b[1]->GetBlind());
 			}
 		}
-		if (!(cin >> command)) {
-			return 0;
+		if (command == "heavydrop") {
+			command = "drop";
+		} else {
+			if (!(cin >> command)) {
+				return 0;
+			}
 		}
 		if (command == "reee") {
 			if (player == 1) {
@@ -144,8 +148,14 @@ int main(int argc, char *argv[]) {
 		}
 		if (Substring(command, "left") && Substring("lef", command)) {
 			b[player - 1]->Move('l');
+			if (b[player - 1]->HeavyDrop()) {
+				command = "heavydrop";
+			}
 		} else if (Substring(command, "right") && Substring("ri", command)) {
 			b[player - 1]->Move('r');
+			if (b[player - 1]->HeavyDrop()) {
+				command = "heavydrop";
+			}
 		} else if (Substring(command, "down") && Substring("do", command)) {
 			b[player - 1]->Move('d');
 		} else if (Substring(command, "clockwise") && Substring("cl", command)) {
@@ -158,6 +168,9 @@ int main(int argc, char *argv[]) {
 				while ((cin >> command)) {
 					if (command == "blind") {
 						b[player % 2]->SetBlind();
+						break;
+					} else if (command == "heavy") {
+						b[player % 2]->SetHeavy();
 						break;
 					} else {
 						cout << "Invalid special action" << endl;
