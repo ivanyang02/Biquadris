@@ -118,11 +118,17 @@ bool Board::ChangeBlock(char type) {
 void Board::Move(char direction) {
 	//std::cout << "nerf ganyu";
 	currentBlock->Move(direction, board);
+	if (currentBlock->GetLevel() >= 3) {
+		currentBlock->Move('d', board);
+	}
 	//std::cout << "nerf venti";
 }
 
 void Board::Rotate(char direction) {
 	currentBlock->Rotate(direction, board);
+	if (currentBlock->GetLevel() >= 3) {
+		currentBlock->Move('d', board);
+	}
 }
 
 bool Board::Drop() {
