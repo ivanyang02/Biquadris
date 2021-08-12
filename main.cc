@@ -121,6 +121,27 @@ int main(int argc, char *argv[]) {
 		if (!(cin >> command)) {
 			return 0;
 		}
+		if (command == "reee") {
+			if (player == 1) {
+			b[0] = new Board{1, sequence1, w};
+			player = 1;
+			b[0]->NewBlock();
+			b[0]->NewBlock();
+			if (!textOnly) {
+			w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext());
+			}
+			}
+			if (player == 2) {
+			b[1] = new Board{2, sequence2, w};
+			player = 2;
+			b[1]->NewBlock();
+			b[1]->NewBlock();
+			if (!textOnly) {
+			w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext());
+			}
+			}
+
+		}
 		if (Substring(command, "left") && Substring("lef", command)) {
 			b[player - 1]->Move('l');
 		} else if (Substring(command, "right") && Substring("ri", command)) {
