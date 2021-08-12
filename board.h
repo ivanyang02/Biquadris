@@ -32,14 +32,14 @@ class Board {
 		Xwindow *window;
 		std::vector<std::vector<Cell *>>board;
 	public:
-		Board(int player, std::vector<char> seq, Xwindow *w);
-		~Board();
-		bool NewBlock();
-		bool AddBlock(char type, int row, int col);
-		bool ChangeBlock(char type);
-		void Move(char direction);
-		void Rotate(char direction);
-		bool Drop();
+		Board(int player, std::vector<char> seq, Xwindow *w); //board contsructor
+		~Board(); //board destructor
+		bool NewBlock(); //generates the new type of block considering level and block sequences, and rng, and passes type into AddBlock
+		bool AddBlock(char type, int row, int col); //Given type and location, adds the proper cells to a block
+		bool ChangeBlock(char type); 
+		void Move(char direction); //Calls block move on the current block
+		void Rotate(char direction); //Calls block rotate on the current block
+		bool Drop(); //Calls block drop on the current block
 		bool HeavyDrop();
 		int ClearLine(int row);
 		void LevelUp();
