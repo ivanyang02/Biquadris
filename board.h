@@ -40,21 +40,21 @@ class Board {
 		void Move(char direction); //Calls block move on the current block
 		void Rotate(char direction); //Calls block rotate on the current block
 		bool Drop(); //Calls block drop on the current block
-		bool HeavyDrop();
-		int ClearLine(int row);
-		void LevelUp();
-		void LevelDown();
-		std::vector<std::vector<Cell *>> GetBoard() const;
-		char GetCellType(int row, int col) const;
-		int GetRows() const;
-		int GetCols() const;
-		int GetLevel() const;
-		int GetScore() const;
-		char GetNext() const;
-		bool GetBlind() const;
-		void SetBlind();
-		void SetHeavy();
-		friend std::ostream &operator<<(std::ostream &out, const Board &b);		
+		bool HeavyDrop(); //Implements the special action heavy drop
+		int ClearLine(int row); //Clears lines that are full
+		void LevelUp(); //Increases the current level
+		void LevelDown(); //Decreases the current level
+		std::vector<std::vector<Cell *>> GetBoard() const; //retrieves the board field
+		char GetCellType(int row, int col) const; //returns the cell type at the given location
+		int GetRows() const; //returns the rows
+		int GetCols() const; //returns the columns
+		int GetLevel() const; //returns the level
+		int GetScore() const; //returns the score
+		char GetNext() const; //returns the type of the next block
+		bool GetBlind() const; //returns wether the special action blind is on
+		void SetBlind(); //sets the board to blind
+		void SetHeavy(); //sets the board to heavy
+		friend std::ostream &operator<<(std::ostream &out, const Board &b); //prints out the board
 };
 
 #endif
