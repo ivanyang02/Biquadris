@@ -7,7 +7,7 @@
 #include "block.h"
 
 class JBlock : public Block {
-	int position; //records the 4 possible positions
+	int position; //Records the position of the JBlock out of the 4 possible positions
 	public:
 		JBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col); //JBlock constructor
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
