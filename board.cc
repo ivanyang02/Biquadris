@@ -67,32 +67,35 @@ bool Board::NewBlock() {
 			if (toohigh) return false;
 		}
 	}
-	if (!AddBlock(type, 14, 0)) return false;
-	return true;
+	if (AddBlock(nextBlock, 14, 0)) {
+		nextBlock = type;
+	 	return true;
+	}
+	return false;
 }
 
 bool Board::AddBlock(char type, int row, int col) {
 	Block *newBlock;
 	try {
-		if (nextBlock == 'I') {
+		if (type == 'I') {
 			IBlock *temp = new IBlock(board, currentLevel, row, col);
 			newBlock = temp;
-		} else if (nextBlock == 'J') {
+		} else if (type == 'J') {
 			JBlock *temp = new JBlock(board, currentLevel, row, col);
 			newBlock = temp;
-		} else if (nextBlock == 'L') {
+		} else if (type == 'L') {
 			LBlock *temp = new LBlock(board, currentLevel, row, col);
 			newBlock = temp;
-		} else if (nextBlock == 'O') {
+		} else if (type == 'O') {
 			OBlock *temp = new OBlock(board, currentLevel, row, col);
 			newBlock = temp;
-		} else if (nextBlock == 'S') {
+		} else if (type == 'S') {
 			SBlock *temp = new SBlock(board, currentLevel, row, col);
 			newBlock = temp;
-		} else if (nextBlock == 'Z') {
+		} else if (type == 'Z') {
 			ZBlock *temp = new ZBlock(board, currentLevel, row, col);
 			newBlock = temp;
-		} else if (nextBlock == 'T') {
+		} else if (type == 'T') {
 			TBlock *temp = new TBlock(board, currentLevel, row, col);
 			newBlock = temp;
 		}
@@ -100,7 +103,10 @@ bool Board::AddBlock(char type, int row, int col) {
 		return false;
 	}
 	currentBlock = newBlock;
-	nextBlock = type;
+	return true;
+}
+
+bool Board::ChangeBlock(char type) {
 	return true;
 }
 
