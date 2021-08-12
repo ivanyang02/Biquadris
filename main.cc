@@ -92,79 +92,99 @@ int main(int argc, char *argv[]) {
 	while(infile2 >> block2) {
 		sequence2.push_back(block2);
 	}
-	Board b[2] = {Board{1, sequence1, w}, Board{2, sequence2, w}};
+	Board *b[2];
+	b[0] = new Board{1, sequence1, w};
+	b[1] = new Board{2, sequence2, w};
 	for (int i = 0; i < defaultlevel; i++) {
-		b[0].LevelUp();
-		b[1].LevelUp();
+		b[0]->LevelUp();
+		b[1]->LevelUp();
 	}
 	string command;
 	int player = 1;
-	b[0].NewBlock();
-	b[0].NewBlock();
-	//b1.AddBlock('S');
-	b[1].NewBlock();
-	b[1].NewBlock();
+	b[0]->NewBlock();
+	b[0]->NewBlock();
+	//b1->AddBlock('S');
+	b[1]->NewBlock();
+	b[1]->NewBlock();
 	if (!textOnly) {
-		w->updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
-		w->updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
+		w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext());
+		w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext());
 	}
 	while(true) {
 		if (!textOnly) {
 			if (player == 1) {
-				w->updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), '0');
+				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), '0');
 			} else {
-				w->updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), '0');
+				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), '0');
 			}
 		}
 		if (!(cin >> command)) {
 			return 0;
 		}
 		if (Substring(command, "left") && Substring("lef", command)) {
-			b[player - 1].Move('l');
+			b[player - 1]->Move('l');
 		} else if (Substring(command, "right") && Substring("ri", command)) {
-			b[player - 1].Move('r');
+			b[player - 1]->Move('r');
 		} else if (Substring(command, "down") && Substring("do", command)) {
-			b[player - 1].Move('d');
+			b[player - 1]->Move('d');
 		} else if (Substring(command, "clockwise") && Substring("cl", command)) {
-			b[player - 1].Rotate('r');
+			b[player - 1]->Rotate('r');
 		} else if (Substring(command, "counterclockwise") && Substring("co", command)) {
-			b[player - 1].Rotate('l');
+			b[player - 1]->Rotate('l');
 		} else if (Substring(command, "drop") && Substring("dr", command)) {
-			b[player - 1].Drop();
+			b[player - 1]->Drop();
+			char again;
 			if (player == 1) {
-				if (!b[0].NewBlock()) {
+				if (!b[0]->NewBlock()) {
 					cout << "player 2 wins" << endl;
-					break;
+					cout << "type restart to restart or quit to quit and do not type anything else or i will be sad" << endl;
 				}
 				if (!textOnly) {
-					w->updateBoard(1, b[0].GetBoard(), 18, 11, b[0].GetScore(), b[0].GetLevel(), b[0].GetNext());
+					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext());
 				}
 				player = 2;
 			} else if (player == 2) {
-				if (!b[1].NewBlock()) {
+				if (!b[1]->NewBlock()) {
 					cout << "player 1 wins" << endl;
-					break;
+					cout << "type restart to restart or quit to quit and do not type anything else or i will eat your shoes" << endl;
 				}
 				if (!textOnly) {
-					w->updateBoard(2, b[1].GetBoard(), 18, 11, b[1].GetScore(), b[1].GetLevel(), b[1].GetNext());
+					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext());
 				}
 				player = 1;
 			}
 		} else if (Substring(command, "levelup") && Substring("levelu", command)) {
-			b[player - 1].LevelUp();
+			b[player - 1]->LevelUp();
 		} else if (Substring(command, "leveldown") && Substring("leveld", command)) {
-			b[player - 1].LevelDown();
+			b[player - 1]->LevelDown();
 		} else if (Substring(command, "norandom") && Substring("n", command)) {
 
 		} else if (command == "random") {
-
+			srand(seed);
 		} else if (command == "sequence") {
-		
+			
 		} else if (command == "restart") {
-		
+			b[0] = new Board{1, sequence1, w};
+			b[1] = new Board{2, sequence2, w};
+			for (int i = 0; i < defaultlevel; i++) {
+				b[0]->LevelUp();
+				b[1]->LevelUp();
+			}
+			player = 1;
+			b[0]->NewBlock();
+			b[0]->NewBlock();
+			//b1->AddBlock('S');
+			b[1]->NewBlock();
+			b[1]->NewBlock();
+			if (!textOnly) {
+				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext());
+				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext());
+			}
 		} else if (command == "p") {
 			cout << b[0] << endl << b[1] << endl;
-			//w.updateBoard(b1, 50, 50);
+			//w->updateBoard(b1, 50, 50);
+		} else if ( command == "quit") {
+			break;
 		}
 	}
 	delete w;

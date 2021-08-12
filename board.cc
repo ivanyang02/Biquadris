@@ -10,15 +10,25 @@ Board::Board(int player, std::vector<char> seq, Xwindow *w):
 		board[i] = std::vector<Cell *>(cols);
 		for (int j = 0; j < cols; j++) {
 			board[i][j] = new Cell(player, i, j, w);
+			board[i][j]->SetOwner(nullptr);
+			board[i][j]->SetType('.');
 		}
 	}
 }
 
 Board::~Board() {
+	std::vector<Block *> blocks;
 	for (int i = 0; i < rows + extra; i++) {
 		for (int j = 0; j < cols; j++) {
+			blocks.push_back(board[i][j]->GetOwner());
 			delete board[i][j];
 		}
+		board[i].clear();
+	}
+	board.clear();
+	int size = blocks.size();
+	for (int i = 0; i < size; i++) {
+		delete blocks[i];
 	}
 }
 
@@ -87,7 +97,6 @@ bool Board::AddBlock(char type) {
 			newBlock = temp;
 		}
 	} catch (OccupiedCell e) {
-		std::cout << "false" << std::endl;
 		return false;
 	}
 	currentBlock = newBlock;
@@ -146,6 +155,7 @@ void Board::ClearLine(int row) {
 						current->RemoveCell(board[row + up][j]);
 						if (current->GetCellsCount() == 0) {
 							score += (current->GetLevel() + 1) * (current->GetLevel() + 1);
+							delete current;
 						}
 					}
 					board[row + up][j]->SetType('.');
