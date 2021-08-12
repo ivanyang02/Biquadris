@@ -7,10 +7,11 @@
 #include "block.h"
 
 class LBlock : public Block {
-	int position;
+	int position; //Records which position the LBlock is in out of the 4 possible positions
 	public:
-		LBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col);
+		LBlock(std::vector<std::vector<Cell *>> board, int level, int row, int col); //LBlock constructor
 		void Rotate(char direction, std::vector<std::vector<Cell *>> board) override;
+		//Rotates the LBlock clockwise and counterclockwise according to the direction on the given board
 };
 
 #endif
