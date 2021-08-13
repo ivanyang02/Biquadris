@@ -14,6 +14,7 @@ LBlock::LBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level,
 	} catch (OccupiedCell e) {
 		throw OccupiedCell{};
 	}
+	SetOwner(id);
 }
 
 void LBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {

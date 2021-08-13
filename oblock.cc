@@ -13,6 +13,7 @@ OBlock::OBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level,
 	} catch (OccupiedCell e) {
 		throw OccupiedCell{};
 	}
+	SetOwner(id);
 }
 
 void OBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
