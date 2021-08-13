@@ -28,9 +28,10 @@ class Board {
 		bool heavy = false;
         std::vector<char> sequence;
 		int seqIndex = 0;
-		std::shared_ptr<Block> currentBlock;
+		std::vector<std::shared_ptr<Block>> blocks;
+		int currentIdx = 0;
 		char hold = '0';
-		char nextBlock;
+		char nextBlock = 0;
 		Xwindow *window;
 		std::vector<std::vector<std::shared_ptr<Cell>>>board;
 	public:

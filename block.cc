@@ -33,19 +33,23 @@ void Block::SetType(char typ) {
 	type = typ;
 }
 
+void Block::SetOwner(int ownerId) {
+	id = ownerId;
+}
+
 void Block::SetPosition(int row, int col) {
 	cornerRow = row;
 	cornerCol = col;
 }
 
-void Block::AddCell(Cell *cell) {
-	cell->AddCell(type, this);
+void Block::AddCell(Cell *cell, int ownerId) {
+	cell->AddCell(type, ownerId);
 	cells.push_back(cell);
 }
 
 void Block::RemoveCell(Cell *cell) {
 	cell->SetType('.');
-	cell->SetOwner(nullptr);
+	cell->SetOwner(-1);
 	for (int i = 0; i < cells.size(); ++i) {
 		if (cells[i] = cell) {
 			cells.erase(cells.begin() + i);
@@ -58,7 +62,7 @@ void Block::RemoveAll() {
 	int len = cells.size();
 	for (int i = len - 1; i >= 0; --i) {
 		cells[i]->SetType('.');
-		cells[i]->SetOwner(nullptr);
+		cells[i]->SetOwner(-1);
 		cells.pop_back();
 	}
 }
@@ -110,7 +114,7 @@ bool Block::Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>>
 	RemoveAll();
 	for (int i = 0; i < newCells.size(); i++) {
 		newCells[i]->SetType(type);
-		newCells[i]->SetOwner(this);
+		newCells[i]->SetOwner(id);
 	}
 	cells = newCells;
 	if (direction == 'l') {

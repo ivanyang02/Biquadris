@@ -1,16 +1,16 @@
 #include "tblock.h"
 
-TBlock::TBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level, int row, int col)
+TBlock::TBlock(std::vector<std::vector<std::shared_ptr<Cell>>> board, int level, int row, int col, int id)
 {
 	position = 0;
 	SetType('T');
 	SetLevel(level);
 	SetPosition(row, col);
 	try {
-	AddCell(board[row][col + 1].get());
-	AddCell(board[row + 1][col].get());
-	AddCell(board[row + 1][col + 1].get());
-	AddCell(board[row + 1][col + 2].get());
+	AddCell(board[row][col + 1].get(), id);
+	AddCell(board[row + 1][col].get(), id);
+	AddCell(board[row + 1][col + 1].get(), id);
+	AddCell(board[row + 1][col + 2].get(), id);
 	} catch (OccupiedCell e) {
 		throw OccupiedCell{};
 	}
@@ -61,18 +61,15 @@ void TBlock::Rotate(char direction, std::vector<std::vector<std::shared_ptr<Cell
 	}
 
 	for (int i = 0; i < newCells.size(); i++) {
-		if (newCells[i]->GetOwner() != nullptr && newCells[i]->GetOwner() != this) {
+		if (newCells[i]->GetOwner() != -1 && newCells[i]->GetOwner() != id) {
 			position = oldposition;
 			return;
 		}
 	}
-	for (int i = 0; i < size; i++) {
-		cells[i]->SetType('.');
-		cells[i]->SetOwner(nullptr);
-	}
+	RemoveAll();
 	for (int i = 0; i < newCells.size(); i++) {
 		newCells[i]->SetType('T');
-		newCells[i]->SetOwner(this);
+		newCells[i]->SetOwner(id);
 	}
 	cells = newCells;
 }

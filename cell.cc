@@ -6,19 +6,19 @@ Cell::Cell(int player, int row, int col, Xwindow *w):
 	row{row},
 	col{col},
 	type{'.'},
-	owner{nullptr},
+	owner{-1},
 	window{w}
 {}
 
 Cell::~Cell() {
 }
 
-void Cell::AddCell(char t, Block *owner) {
-	if (GetOwner() != nullptr) {
+void Cell::AddCell(char t, int ownerId) {
+	if (type != '.') {
 		throw OccupiedCell{};
 	}
 	SetType(t);
-	SetOwner(owner);
+	SetOwner(ownerId);
 }
 
 void Cell::SetType(char t) {
@@ -28,15 +28,15 @@ void Cell::SetType(char t) {
 	}
 }
 
-void Cell::SetOwner(Block *b) {
-	owner = b;
+void Cell::SetOwner(int id) {
+	owner = id;
 }
 
 char Cell::GetType() const {
 	return type;
 }
 
-Block *Cell::GetOwner() const {
+int Cell::GetOwner() const {
 	return owner;
 }
 

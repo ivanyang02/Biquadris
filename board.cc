@@ -5,27 +5,26 @@ Board::Board(int player, std::vector<char> seq, Xwindow *w):
 	player{player},
 	sequence{seq}
 {
+	blocks = std::vector<std::shared_ptr<Block>>(200);
 	board = std::vector<std::vector<std::shared_ptr<Cell>>>(rows + extra);
 	for (int i = 0; i < rows + extra; i++) {
 		board[i] = std::vector<std::shared_ptr<Cell>>(cols);
 		for (int j = 0; j < cols; j++) {
 			board[i][j] = std::make_shared<Cell>(player, i, j, w);
-			board[i][j]->SetOwner(nullptr);
-			board[i][j]->SetType('.');
 		}
 	}
 }
 
 Board::~Board() {
-	std::vector<Block *> blocks;
+	return;
 	for (int i = 0; i < rows + extra; i++) {
 		for (int j = 0; j < cols; j++) {
-			(board[i][j]->GetOwner())->RemoveAll();
-			board[i][j]->SetOwner(nullptr);
+			blocks[board[i][j]->GetOwner()]->RemoveAll();
 		}
 		board[i].clear();
 	}
 	board.clear();
+	blocks.clear();
 }
 
 bool Board::NewBlock() {
@@ -72,37 +71,44 @@ bool Board::NewBlock() {
 
 bool Board::AddBlock(char type, int row, int col) {
 	std::shared_ptr<Block> newBlock;
+	for (int i = 0; i < 200; i++) {
+		if (blocks[i] == nullptr) {
+			currentIdx = i;
+			break;
+		}
+	}
 	try {
 		if (type == 'I') {
-			std::shared_ptr<IBlock> temp = std::make_shared<IBlock>(board, currentLevel, row, col);
+			std::shared_ptr<IBlock> temp = std::make_shared<IBlock>(board, currentLevel, row, col, currentIdx);
 			newBlock = temp;
 		} else if (type == 'J') {
-			std::shared_ptr<JBlock> temp = std::make_shared<JBlock>(board, currentLevel, row, col);
+			std::shared_ptr<JBlock> temp = std::make_shared<JBlock>(board, currentLevel, row, col, currentIdx);
 			newBlock = temp;
 		} else if (type == 'L') {
-			std::shared_ptr<LBlock> temp = std::make_shared<LBlock>(board, currentLevel, row, col);
+			std::shared_ptr<LBlock> temp = std::make_shared<LBlock>(board, currentLevel, row, col, currentIdx);
 			newBlock = temp;
 		} else if (type == 'O') {
-			std::shared_ptr<OBlock> temp = std::make_shared<OBlock>(board, currentLevel, row, col);
+			std::shared_ptr<OBlock> temp = std::make_shared<OBlock>(board, currentLevel, row, col, currentIdx);
 			newBlock = temp;
 		} else if (type == 'S') {
-			std::shared_ptr<SBlock> temp = std::make_shared<SBlock>(board, currentLevel, row, col);
+			std::shared_ptr<SBlock> temp = std::make_shared<SBlock>(board, currentLevel, row, col, currentIdx);
 			newBlock = temp;
 		} else if (type == 'Z') {
-			std::shared_ptr<ZBlock> temp = std::make_shared<ZBlock>(board, currentLevel, row, col);
+			std::shared_ptr<ZBlock> temp = std::make_shared<ZBlock>(board, currentLevel, row, col, currentIdx);
 			newBlock = temp;
 		} else if (type == 'T') {
-			std::shared_ptr<TBlock> temp = std::make_shared<TBlock>(board, currentLevel, row, col);
+			std::shared_ptr<TBlock> temp = std::make_shared<TBlock>(board, currentLevel, row, col, currentIdx);
 			newBlock = temp;
 		}
 	} catch (OccupiedCell e) {
 		return false;
 	}
-	currentBlock = newBlock;
+	blocks[currentIdx] = newBlock;
 	return true;
 }
 
 bool Board::ChangeBlock(char type) {
+	std::shared_ptr<Block> currentBlock = blocks[currentIdx];
 	int r = currentBlock->GetCoRow();
 	int c = currentBlock->GetCoCol();
 	currentBlock->RemoveAll();
@@ -111,7 +117,7 @@ bool Board::ChangeBlock(char type) {
 }
 
 void Board::Move(char direction) {
-	//std::cout << "nerf ganyu";
+	std::shared_ptr<Block> currentBlock = blocks[currentIdx];
 	currentBlock->Move(direction, board);
 	if (currentBlock->GetLevel() >= 3) {
 		currentBlock->Move('d', board);
@@ -120,6 +126,7 @@ void Board::Move(char direction) {
 }
 
 void Board::Rotate(char direction) {
+	std::shared_ptr<Block> currentBlock = blocks[currentIdx];
 	currentBlock->Rotate(direction, board);
 	if (currentBlock->GetLevel() >= 3) {
 		currentBlock->Move('d', board);
@@ -127,6 +134,7 @@ void Board::Rotate(char direction) {
 }
 
 void Board::HoldBlock() {
+	std::shared_ptr<Block> currentBlock = blocks[currentIdx];
 	if (hold == '0') {
 		hold = currentBlock->GetType();
         currentBlock->RemoveAll();
@@ -141,6 +149,7 @@ void Board::HoldBlock() {
 }
 
 bool Board::Drop() {
+	std::shared_ptr<Block> currentBlock = blocks[currentIdx];
 	if (blind) blind = false;
 	if (heavy) heavy = false;
 	currentBlock->Drop(board);
@@ -152,6 +161,7 @@ bool Board::Drop() {
 }
 
 bool Board::HeavyDrop() {
+	std::shared_ptr<Block> currentBlock = blocks[currentIdx];
 	if (heavy) {
 		int r = currentBlock->GetCoRow();
 		currentBlock->Move('d', board);
@@ -193,11 +203,12 @@ int Board::ClearLine(int row) {
 			}
 			if (linetoclear) {
 				for (int j = 0; j < cols; j++) {
-					Block *current = board[row + up][j]->GetOwner();
-					if (current != nullptr) {
-						current->RemoveCell(board[row + up][j].get());
-						if (current->GetCellsCount() == 0) {
-							score += (current->GetLevel() + 1) * (current->GetLevel() + 1);
+					int current = board[row + up][j]->GetOwner();
+					if (current != -1) {
+						blocks[current]->RemoveCell(board[row + up][j].get());
+						if (blocks[current]->GetCellsCount() == 0) {
+							score += (blocks[current]->GetLevel() + 1) * (blocks[current]->GetLevel() + 1);
+							blocks[current] = nullptr;
 						}
 					}
 					board[row + up][j]->SetType('.');
@@ -205,10 +216,10 @@ int Board::ClearLine(int row) {
 				}
 				for (int j = row + 1 + up; j < rows; j++) {
 					for (int k = 0; k < cols; k++) {
-						Block *current = board[j][k]->GetOwner();
-						if (current != nullptr) {
-							current->RemoveCell(board[j][k].get());
-							current->AddCell(board[j - 1][k].get());
+						int current = board[j][k]->GetOwner();
+						if (current != -1) {
+							blocks[current]->RemoveCell(board[j][k].get());
+							blocks[current]->AddCell(board[j - 1][k].get(), current);
 						} else if (board[j][k]->GetType() == '*') {
 							board[j][k]->SetType('.');
 							board[j - 1][k] ->SetType('*');

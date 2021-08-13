@@ -11,6 +11,7 @@ class Block {
 		int level;
 		int cellsCount = 0;
 	protected:
+		int id;
 		int cornerRow;
 		int cornerCol;
 		std::vector<Cell *> cells;
@@ -23,8 +24,9 @@ class Block {
 		virtual int GetCellsCount(); //returns the number of cells in vector cells
 		virtual void SetLevel(int level); //sets the level field
 		virtual void SetType(char type); //sets the type field
+		virtual void SetOwner(int id);
 		virtual void SetPosition(int row, int col); //sets both the cornerRow and cornerCol fields
-		virtual void AddCell(Cell *cell); //adds the cell to the vector of cells
+		virtual void AddCell(Cell *cell, int id); //adds the cell to the vector of cells
 		virtual void RemoveCell(Cell *cell); //removes the specified cell from the vector of cells if present
 		virtual void RemoveAll(); // removes all the cells in the vector of cells
 		virtual bool Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board);

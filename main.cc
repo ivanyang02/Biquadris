@@ -183,6 +183,7 @@ int main(int argc, char *argv[]) {
 		w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
 		w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
 	}
+	while (true) {
 	while(true) {
 		if (!textOnly) {
 			if (player == 1) {
@@ -271,7 +272,8 @@ int main(int argc, char *argv[]) {
 			if (player == 1) {
 				if (!b[0]->NewBlock()) {
 					cout << "player 2 wins" << endl;
-					cout << "type restart to restart or quit to quit and do not type anything else or i will be sad" << endl;
+					cout << "type restart to restart anything else to quit" << endl;
+					break;
 				}
 				if (!textOnly) {
 					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
@@ -280,7 +282,8 @@ int main(int argc, char *argv[]) {
 			} else if (player == 2) {
 				if (!b[1]->NewBlock()) {
 					cout << "player 1 wins" << endl;
-					cout << "type restart to restart or quit to quit and do not type anything else or i will eat your shoes" << endl;
+					cout << "type restart to restart or anything else to quit" << endl;
+					break;
 				}
 				if (!textOnly) {
 					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
@@ -317,5 +320,28 @@ int main(int argc, char *argv[]) {
 		} else if ( command == "quit") {
 			break;
 		}
+	}
+	string s;
+	cin >> s;
+	if (s != "restart") {
+		break;
+	}
+	b[0] = make_shared<Board>(1, sequence1, w.get());
+			b[1] = make_shared<Board>(2, sequence2, w.get());
+			for (int i = 0; i < defaultlevel; i++) {
+				b[0]->LevelUp();
+				b[1]->LevelUp();
+			}
+			player = 1;
+			b[0]->NewBlock();
+			b[0]->NewBlock();
+			//b1->AddBlock('S');
+			b[1]->NewBlock();
+			b[1]->NewBlock();
+			if (!textOnly) {
+				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), b[0]->GetHold());
+				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), b[1]->GetHold());
+			}
+
 	}
 }
