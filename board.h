@@ -32,7 +32,7 @@ class Board {
 		char hold = '0';
 		char nextBlock;
 		Xwindow *window;
-		std::vector<std::vector<Cell *>>board;
+		std::vector<std::vector<std::shared_ptr<Cell>>>board;
 	public:
 		Board(int player, std::vector<char> seq, Xwindow *w); //board contsructor
 		~Board(); //board destructor
@@ -47,7 +47,7 @@ class Board {
 		int ClearLine(int row); //Clears lines that are full
 		void LevelUp(); //Increases the current level
 		void LevelDown(); //Decreases the current level
-		std::vector<std::vector<Cell *>> GetBoard() const; //retrieves the board field
+		std::vector<std::vector<std::shared_ptr<Cell>>> GetBoard() const; //retrieves the board field
 		char GetCellType(int row, int col) const; //returns the cell type at the given location
 		int GetRows() const; //returns the rows
 		int GetCols() const; //returns the columns

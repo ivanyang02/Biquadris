@@ -5,11 +5,11 @@ Board::Board(int player, std::vector<char> seq, Xwindow *w):
 	player{player},
 	sequence{seq}
 {
-	board = std::vector<std::vector<Cell *>>(rows + extra);
+	board = std::vector<std::vector<std::shared_ptr<Cell>>>(rows + extra);
 	for (int i = 0; i < rows + extra; i++) {
-		board[i] = std::vector<Cell *>(cols);
+		board[i] = std::vector<std::shared_ptr<Cell>>(cols);
 		for (int j = 0; j < cols; j++) {
-			board[i][j] = new Cell(player, i, j, w);
+			board[i][j] = std::make_shared<Cell>(player, i, j, w);
 			board[i][j]->SetOwner(nullptr);
 			board[i][j]->SetType('.');
 		}
@@ -195,7 +195,7 @@ int Board::ClearLine(int row) {
 				for (int j = 0; j < cols; j++) {
 					Block *current = board[row + up][j]->GetOwner();
 					if (current != nullptr) {
-						current->RemoveCell(board[row + up][j]);
+						current->RemoveCell(board[row + up][j].get());
 						if (current->GetCellsCount() == 0) {
 							score += (current->GetLevel() + 1) * (current->GetLevel() + 1);
 						}
@@ -207,8 +207,8 @@ int Board::ClearLine(int row) {
 					for (int k = 0; k < cols; k++) {
 						Block *current = board[j][k]->GetOwner();
 						if (current != nullptr) {
-							current->RemoveCell(board[j][k]);
-							current->AddCell(board[j - 1][k]);
+							current->RemoveCell(board[j][k].get());
+							current->AddCell(board[j - 1][k].get());
 						} else if (board[j][k]->GetType() == '*') {
 							board[j][k]->SetType('.');
 							board[j - 1][k] ->SetType('*');
@@ -230,7 +230,7 @@ void Board::LevelDown() {
 	if (currentLevel > 0) --currentLevel;
 }
 
-std::vector<std::vector<Cell *>> Board::GetBoard() const {
+std::vector<std::vector<std::shared_ptr<Cell>>> Board::GetBoard() const {
 	return board;
 }
 

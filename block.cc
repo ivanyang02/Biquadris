@@ -63,7 +63,7 @@ void Block::RemoveAll() {
 	}
 }
 
-bool Block::Move(char direction, std::vector<std::vector<Cell *>> board) {
+bool Block::Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
 	std::vector<Cell *> oldCells;
 	std::vector<Cell *> sameCells;
 	std::vector<Cell *> newCells;
@@ -80,17 +80,17 @@ bool Block::Move(char direction, std::vector<std::vector<Cell *>> board) {
 			if (col - 1 == -1) {
 				return false;
 			}
-			next = board[row][col - 1];
+			next = board[row][col - 1].get();
 		} else if (direction == 'r') {
 			if (col + 1 == boardcols) {
 				return false;
 			}
-			next = board[row][col + 1];
+			next = board[row][col + 1].get();
 		} else {
 			if (row - 1 < 0) {
 				return false;
 			}
-			next = board[row - 1][col];
+			next = board[row - 1][col].get();
 		}
 		if (current->GetOwner() != next->GetOwner() && next->GetType() != '.') {
 			return false;
@@ -134,6 +134,6 @@ bool Block::Move(char direction, std::vector<std::vector<Cell *>> board) {
 	return true;
 }
 
-void Block::Drop(std::vector<std::vector<Cell *>> board) {
+void Block::Drop(std::vector<std::vector<std::shared_ptr<Cell>>> board) {
 	while (Move('d', board));
 }
