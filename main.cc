@@ -203,7 +203,6 @@ int main(int argc, char *argv[]) {
 	while (true) {
 	while(true) {
 		// Display the game
-		if (!gg) {
 			if (!textOnly) {
 				if (player == 1) {
 					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), '0', b[0]->GetBlind(), '0');
@@ -212,7 +211,6 @@ int main(int argc, char *argv[]) {
 				}
 			}
 			printBoard(b);
-		}
 		
 		// Get command from cin
 		if (command == "heavydrop") {
@@ -223,28 +221,28 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-		if (!gg && Substring(command, "left") && Substring("lef", command)) {
+		if (Substring(command, "left") && Substring("lef", command)) {
 			b[player - 1]->Move('l');
 			if (b[player - 1]->HeavyDrop()) {
 				command = "heavydrop";
 			}
-		} else if (!gg && Substring(command, "right") && Substring("ri", command)) {
+		} else if (Substring(command, "right") && Substring("ri", command)) {
 			b[player - 1]->Move('r');
 			if (b[player - 1]->HeavyDrop()) {
 				command = "heavydrop";
 			}
-		} else if (!gg && Substring(command, "down") && Substring("do", command)) {
+		} else if (Substring(command, "down") && Substring("do", command)) {
 			b[player - 1]->Move('d');
-		} else if (!gg && Substring(command, "clockwise") && Substring("cl", command)) {
+		} else if (Substring(command, "clockwise") && Substring("cl", command)) {
 			b[player - 1]->Rotate('r');
-		} else if (!gg && Substring(command, "counterclockwise") && Substring("co", command)) {
+		} else if (Substring(command, "counterclockwise") && Substring("co", command)) {
 			b[player - 1]->Rotate('l');
-		} else if (!gg && command == "hold") {
+		} else if (command == "hold") {
 			b[player - 1]->HoldBlock();
 			if (!textOnly) {
 				w->updateBoard(player, b[player - 1]->GetBoard(), 18, 11, b[player - 1]->GetScore(), b[player - 1]->GetLevel(), b[player - 1]->GetNext(), b[player - 1]->GetBlind(), b[player - 1]->GetHold());
 			}
-		} else if (!gg && Substring(command, "drop") && Substring("dr", command)) {
+		} else if (Substring(command, "drop") && Substring("dr", command)) {
 			if (b[player - 1]->Drop()) {
 				cout << "Please enter special action" << endl;
 				// Special action if multiple lines are cleared
@@ -294,9 +292,9 @@ int main(int argc, char *argv[]) {
 				}
 				player = 1;
 			}
-		} else if (!gg && Substring(command, "levelup") && Substring("levelu", command)) {
+		} else if (Substring(command, "levelup") && Substring("levelu", command)) {
 			b[player - 1]->LevelUp();
-		} else if (!gg && Substring(command, "leveldown") && Substring("leveld", command)) {
+		} else if (Substring(command, "leveldown") && Substring("leveld", command)) {
 			b[player - 1]->LevelDown();
 		} else if (Substring(command, "norandom") && Substring("n", command)) {
 

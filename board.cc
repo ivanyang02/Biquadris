@@ -16,10 +16,11 @@ Board::Board(int player, std::vector<char> seq, Xwindow *w):
 }
 
 Board::~Board() {
-	return;
 	for (int i = 0; i < rows + extra; i++) {
 		for (int j = 0; j < cols; j++) {
-			blocks[board[i][j]->GetOwner()]->RemoveAll();
+			if (board[i][j]->GetOwner() != -1) {
+				blocks[board[i][j]->GetOwner()]->RemoveAll();
+			}
 		}
 		board[i].clear();
 	}
