@@ -75,7 +75,7 @@ void printBoard(shared_ptr<Board> *b) {
 		}
 		cout << endl;
 	}
-    cout << "-----------    -----------" << endl;
+    	cout << "-----------    -----------" << endl;
 
 	// print the next block
 	cout << "Next:          Next:" << endl;
@@ -91,7 +91,7 @@ void printBoard(shared_ptr<Board> *b) {
 	}
 
 	// print the hold block
-    cout << "Hold:          Hold:" << endl;
+    	cout << "Hold:          Hold:" << endl;
 	for (int i = 0; i < 2; ++i) {
 		for (int n = 0; n < 2; ++n) {
             vector<char> block = printBlock(b[n]->GetHold());
