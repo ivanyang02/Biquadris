@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "block.h"
 #include "iblock.h"
@@ -27,7 +28,7 @@ class Board {
 		bool heavy = false;
         std::vector<char> sequence;
 		int seqIndex = 0;
-		Block *currentBlock;
+		std::shared_ptr<Block> currentBlock;
 		char hold = '0';
 		char nextBlock;
 		Xwindow *window;

@@ -71,28 +71,28 @@ bool Board::NewBlock() {
 }
 
 bool Board::AddBlock(char type, int row, int col) {
-	Block *newBlock;
+	std::shared_ptr<Block> newBlock;
 	try {
 		if (type == 'I') {
-			IBlock *temp = new IBlock(board, currentLevel, row, col);
+			std::shared_ptr<IBlock> temp = std::make_shared<IBlock>(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (type == 'J') {
-			JBlock *temp = new JBlock(board, currentLevel, row, col);
+			std::shared_ptr<JBlock> temp = std::make_shared<JBlock>(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (type == 'L') {
-			LBlock *temp = new LBlock(board, currentLevel, row, col);
+			std::shared_ptr<LBlock> temp = std::make_shared<LBlock>(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (type == 'O') {
-			OBlock *temp = new OBlock(board, currentLevel, row, col);
+			std::shared_ptr<OBlock> temp = std::make_shared<OBlock>(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (type == 'S') {
-			SBlock *temp = new SBlock(board, currentLevel, row, col);
+			std::shared_ptr<SBlock> temp = std::make_shared<SBlock>(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (type == 'Z') {
-			ZBlock *temp = new ZBlock(board, currentLevel, row, col);
+			std::shared_ptr<ZBlock> temp = std::make_shared<ZBlock>(board, currentLevel, row, col);
 			newBlock = temp;
 		} else if (type == 'T') {
-			TBlock *temp = new TBlock(board, currentLevel, row, col);
+			std::shared_ptr<TBlock> temp = std::make_shared<TBlock>(board, currentLevel, row, col);
 			newBlock = temp;
 		}
 	} catch (OccupiedCell e) {
@@ -106,7 +106,6 @@ bool Board::ChangeBlock(char type) {
 	int r = currentBlock->GetCoRow();
 	int c = currentBlock->GetCoCol();
 	currentBlock->RemoveAll();
-	delete currentBlock;
 	if (AddBlock(type, r, c)) return true;
 	return false;
 }
@@ -131,12 +130,10 @@ void Board::HoldBlock() {
 	if (hold == '0') {
 		hold = currentBlock->GetType();
         currentBlock->RemoveAll();
-		delete currentBlock;
         NewBlock();
 	} else {
 		char type = currentBlock->GetType();
 		currentBlock->RemoveAll();
-		delete currentBlock;
 		AddBlock(hold, 14, 0);
 		hold = type;
 	}
@@ -201,7 +198,6 @@ int Board::ClearLine(int row) {
 						current->RemoveCell(board[row + up][j]);
 						if (current->GetCellsCount() == 0) {
 							score += (current->GetLevel() + 1) * (current->GetLevel() + 1);
-							delete current;
 						}
 					}
 					board[row + up][j]->SetType('.');
