@@ -17,10 +17,8 @@ Board::Board(int player, std::vector<char> seq, Xwindow *w):
 }
 
 Board::~Board() {
-	std::vector<Block *> blocks;
 	for (int i = 0; i < rows + extra; i++) {
 		for (int j = 0; j < cols; j++) {
-			(board[i][j]->GetOwner())->RemoveAll();
 			board[i][j]->SetOwner(nullptr);
 		}
 		board[i].clear();

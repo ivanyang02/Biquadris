@@ -30,7 +30,7 @@ class Board {
 		int seqIndex = 0;
 		std::shared_ptr<Block> currentBlock;
 		char hold = '0';
-		char nextBlock;
+		char nextBlock = '0';
 		Xwindow *window;
 		std::vector<std::vector<std::shared_ptr<Cell>>>board;
 	public:
