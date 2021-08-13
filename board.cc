@@ -20,16 +20,12 @@ Board::~Board() {
 	std::vector<Block *> blocks;
 	for (int i = 0; i < rows + extra; i++) {
 		for (int j = 0; j < cols; j++) {
-			blocks.push_back(board[i][j]->GetOwner());
-			delete board[i][j];
+			(board[i][j]->GetOwner())->RemoveAll();
+			board[i][j]->SetOwner(nullptr);
 		}
 		board[i].clear();
 	}
 	board.clear();
-	int size = blocks.size();
-	for (int i = 0; i < size; i++) {
-		delete blocks[i];
-	}
 }
 
 bool Board::NewBlock() {

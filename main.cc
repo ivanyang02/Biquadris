@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <memory>
 
 #include "board.h"
 #include "window.h"
@@ -51,7 +52,7 @@ vector<char> printNext(char t) {
 	}
 }
 
-void printBoard(Board **b) {
+void printBoard(shared_ptr<Board> *b) {
 	cout << "Level: " << std::setw(4) << b[0]->GetLevel() << "    " << "Level: " << std::setw(4) << b[1]->GetLevel() << endl;
 	cout << "Score: " << std::setw(4) << b[0]->GetScore() << "    " << "Score: " << std::setw(4) << b[1]->GetScore() << endl;
 	cout << "-----------    -----------" << std::endl;
@@ -143,9 +144,9 @@ int main(int argc, char *argv[]) {
 	srand(seed);
 	ifstream infile1{input1}, infile2{input2};
 
-	Xwindow *w;
+	shared_ptr<Xwindow> w;
 	if (!textOnly) {
-		w = new Xwindow(500, 500);
+		w = make_shared<Xwindow>(500, 500);
 		w->SetCellSize(10, 10);
 		w->SetPlayerOffset(1, 50, 50);
 		w->SetPlayerOffset(2, 280, 50);
@@ -164,9 +165,9 @@ int main(int argc, char *argv[]) {
 	while(infile2 >> block2) {
 		sequence2.push_back(block2);
 	}
-	Board *b[2];
-	b[0] = new Board{1, sequence1, w};
-	b[1] = new Board{2, sequence2, w};
+	shared_ptr<Board> b[2];
+	b[0] = make_shared<Board>(1, sequence1, w.get());
+	b[1] = make_shared<Board>(2, sequence2, w.get());
 	for (int i = 0; i < defaultlevel; i++) {
 		b[0]->LevelUp();
 		b[1]->LevelUp();
@@ -201,7 +202,7 @@ int main(int argc, char *argv[]) {
 		}
 		if (command == "reee") {
 			if (player == 1) {
-				b[0] = new Board{1, sequence1, w};
+				b[0] = make_shared<Board>(1, sequence1, w.get());
 				player = 1;
 				b[0]->NewBlock();
 				b[0]->NewBlock();
@@ -209,7 +210,7 @@ int main(int argc, char *argv[]) {
 					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), b[0]->GetHold());
 				}
 			} else if (player == 2) {
-				b[1] = new Board{2, sequence2, w};
+				b[1] = make_shared<Board>(2, sequence2, w.get());
 				player = 2;
 				b[1]->NewBlock();
 				b[1]->NewBlock();
@@ -297,10 +298,8 @@ int main(int argc, char *argv[]) {
 		} else if (command == "sequence") {
 			
 		} else if (command == "restart") {
-			delete b[0];
-			delete b[1];
-			b[0] = new Board{1, sequence1, w};
-			b[1] = new Board{2, sequence2, w};
+			b[0] = make_shared<Board>(1, sequence1, w.get());
+			b[1] = make_shared<Board>(2, sequence2, w.get());
 			for (int i = 0; i < defaultlevel; i++) {
 				b[0]->LevelUp();
 				b[1]->LevelUp();
@@ -319,5 +318,4 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 	}
-	delete w;
 }
