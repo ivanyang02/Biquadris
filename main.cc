@@ -313,7 +313,7 @@ int main(int argc, char *argv[]) {
 				b[0]->LevelUp();
 				b[1]->LevelUp();
 			}
-			int player = 1;
+			player = 1;
 			b[0]->NewBlock();
 			b[0]->NewBlock();
 			//b1->AddBlock('S');
@@ -324,7 +324,21 @@ int main(int argc, char *argv[]) {
 				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
 			}
 		} else if ( command == "quit") {
-			break;
+			return 0;
+		} else if (command == "I") {
+			b[player - 1]->ChangeBlock('I');
+		} else if (command == "J") {
+			b[player - 1]->ChangeBlock('J');
+		} else if (command == "L") {
+			b[player - 1]->ChangeBlock('L');
+		} else if (command == "O") {
+			b[player - 1]->ChangeBlock('O');
+		} else if (command == "S") {
+			b[player - 1]->ChangeBlock('S');
+		} else if (command == "Z") {
+			b[player - 1]->ChangeBlock('Z');
+		} else if (command == "T") {
+			b[player - 1]->ChangeBlock('T');
 		} else {
 			cout << "Invalid Command: " << command <<endl;
 			command = "";
