@@ -28,34 +28,41 @@ bool Substring(string a, string b) {
 // Returns an array of char indicating how to print the block type t
 vector<char> printBlock(char t) {
 	if (t == 'I') {
-		vector<char> arr{'I', 'I', 'I', 'I', ' ', ' ', ' ', ' '};
+		vector<char> arr{ 'I', 'I', 'I', 'I', ' ', ' ', ' ', ' ' };
 		return arr;
-	} else if (t == 'J') {
-		vector<char> arr{'J', ' ', ' ', ' ', 'J', 'J', 'J', ' '};
+	}
+	else if (t == 'J') {
+		vector<char> arr{ 'J', ' ', ' ', ' ', 'J', 'J', 'J', ' ' };
 		return arr;
-	} else if (t == 'L') {
-		vector<char> arr{' ', ' ', 'L', ' ', 'L', 'L', 'L', ' '};
+	}
+	else if (t == 'L') {
+		vector<char> arr{ ' ', ' ', 'L', ' ', 'L', 'L', 'L', ' ' };
 		return arr;
-	} else if (t == 'S') {
-		vector<char> arr{' ', 'S', 'S', ' ', 'S', 'S', ' ', ' '};
+	}
+	else if (t == 'S') {
+		vector<char> arr{ ' ', 'S', 'S', ' ', 'S', 'S', ' ', ' ' };
 		return arr;
-	} else if (t == 'Z') {
-		vector<char> arr{'Z', 'Z', ' ', ' ', ' ', 'Z', 'Z', ' '};
+	}
+	else if (t == 'Z') {
+		vector<char> arr{ 'Z', 'Z', ' ', ' ', ' ', 'Z', 'Z', ' ' };
 		return arr;
-	} else if (t == 'T') {
-		vector<char> arr{'T', 'T', 'T', ' ', ' ', 'T', ' ', ' '};
+	}
+	else if (t == 'T') {
+		vector<char> arr{ 'T', 'T', 'T', ' ', ' ', 'T', ' ', ' ' };
 		return arr;
-	} else if (t == 'O') {
-		vector<char> arr{'O', 'O', ' ', ' ', 'O', 'O', ' ', ' '};
+	}
+	else if (t == 'O') {
+		vector<char> arr{ 'O', 'O', ' ', ' ', 'O', 'O', ' ', ' ' };
 		return arr;
-	} else {
-		vector<char> arr{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+	}
+	else {
+		vector<char> arr{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
 		return arr;
 	}
 }
 
 // Print text display for the game
-void printBoard(shared_ptr<Board> *b) {
+void printBoard(shared_ptr<Board>* b) {
 	// print level and score
 	cout << "Level: " << std::setw(4) << b[0]->GetLevel() << "    " << "Level: " << std::setw(4) << b[1]->GetLevel() << endl;
 	cout << "Score: " << std::setw(4) << b[0]->GetScore() << "    " << "Score: " << std::setw(4) << b[1]->GetScore() << endl;
@@ -63,11 +70,12 @@ void printBoard(shared_ptr<Board> *b) {
 	// print the board
 	cout << "-----------    -----------" << std::endl;
 	for (int i = b[0]->GetRows() - 1; i >= 0; i--) {
-	    for (int n = 0; n < 2; ++n) {
+		for (int n = 0; n < 2; ++n) {
 			for (int j = 0; j < b[0]->GetCols(); j++) {
 				if (b[n]->GetBlind() && i >= 2 && i <= 8 && j >= 2 && j <= 11) {
 					cout << '?';
-				} else {
+				}
+				else {
 					cout << b[n]->GetCellType(i, j);
 				}
 			}
@@ -75,15 +83,15 @@ void printBoard(shared_ptr<Board> *b) {
 		}
 		cout << endl;
 	}
-    	cout << "-----------    -----------" << endl;
+	cout << "-----------    -----------" << endl;
 
 	// print the next block
 	cout << "Next:          Next:" << endl;
 	for (int i = 0; i < 2; ++i) {
 		for (int n = 0; n < 2; ++n) {
-            vector<char> block = printBlock(b[n]->GetNext());
+			vector<char> block = printBlock(b[n]->GetNext());
 			for (int j = 0; j < 4; ++j) {
-	            cout << block[i * 4 + j];
+				cout << block[i * 4 + j];
 			}
 			cout << "           ";
 		}
@@ -91,12 +99,12 @@ void printBoard(shared_ptr<Board> *b) {
 	}
 
 	// print the hold block
-    	cout << "Hold:          Hold:" << endl;
+	cout << "Hold:          Hold:" << endl;
 	for (int i = 0; i < 2; ++i) {
 		for (int n = 0; n < 2; ++n) {
-            vector<char> block = printBlock(b[n]->GetHold());
+			vector<char> block = printBlock(b[n]->GetHold());
 			for (int j = 0; j < 4; ++j) {
-	            cout << block[i * 4 + j];
+				cout << block[i * 4 + j];
 			}
 			cout << "           ";
 		}
@@ -105,7 +113,7 @@ void printBoard(shared_ptr<Board> *b) {
 }
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 	if (argc < 3) {
 		cout << "Usage: " << argv[0] << " sequence1 sequence2" << endl;
 		return 1;
@@ -129,32 +137,38 @@ int main(int argc, char *argv[]) {
 		cl = commands[i];
 		if (cl == "-text") {
 			textOnly = true;
-		} else if (cl == "-seed") {
+		}
+		else if (cl == "-seed") {
 			++i;
 			seed = stoi(commands[i]);
-		} else if (cl == "-scriptfile1") {
+		}
+		else if (cl == "-scriptfile1") {
 			++i;
 			input1 = commands[i];
 			in1override = true;
-		} else if (cl == "-scriptfile2") {
+		}
+		else if (cl == "-scriptfile2") {
 			++i;
 			input2 = commands[i];
 			in2override = true;
-		} else if (cl == "-startlevel") {
+		}
+		else if (cl == "-startlevel") {
 			++i;
 			defaultlevel = stoi(commands[i]);
-		} else {
+		}
+		else {
 			if (input1 == "") {
 				if (!in1override) {
 					input1 = commands[i];
 				}
-			} else if (!in2override) {
+			}
+			else if (!in2override) {
 				input2 = commands[i];
 			}
 		}
 	}
 	srand(seed);
-	ifstream infile1{input1}, infile2{input2};
+	ifstream infile1{ input1 }, infile2{ input2 };
 
 	// Set up graphics display window
 	shared_ptr<Xwindow> w;
@@ -165,8 +179,8 @@ int main(int argc, char *argv[]) {
 		w->SetPlayerOffset(2, 280, 50);
 		w->drawBoard(18, 11);
 		//drawScreen(&w);
-		w->drawPicture("splashart.txt", 25,5);
-		w->drawPicture("splashart2.txt", 325,5);
+		w->drawPicture("splashart.txt", 25, 5);
+		w->drawPicture("splashart2.txt", 325, 5);
 	}
 
 	// Set up sequence input for players
@@ -174,10 +188,10 @@ int main(int argc, char *argv[]) {
 	char block1, block2;
 	int level1 = 0, level2 = 0;
 	size_t blockIndex1 = 1, blockIndex2 = 1;
-	while(infile1 >> block1) {
+	while (infile1 >> block1) {
 		sequence1.push_back(block1);
 	}
-	while(infile2 >> block2) {
+	while (infile2 >> block2) {
 		sequence2.push_back(block2);
 	}
 
@@ -201,170 +215,198 @@ int main(int argc, char *argv[]) {
 		w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
 	}
 	while (true) {
-	while(true) {
-		// Display the game
+		while (true) {
+			// Display the game
 			if (!textOnly) {
 				if (player == 1) {
 					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), '0', b[0]->GetBlind(), '0');
-				} else {
+				}
+				else {
 					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), '0', b[1]->GetBlind(), '0');
 				}
 			}
 			printBoard(b);
-		
-		// Get command from cin
-		if (command == "heavydrop") {
-			command = "drop";
-		} else {
-			if (!(cin >> command)) {
-				return 0;
-			}
-		}
 
-		if (Substring(command, "left") && Substring("lef", command)) {
-			b[player - 1]->Move('l');
-			if (b[player - 1]->HeavyDrop()) {
-				command = "heavydrop";
+			// Get command from cin
+			if (command == "heavydrop") {
+				command = "drop";
 			}
-		} else if (Substring(command, "right") && Substring("ri", command)) {
-			b[player - 1]->Move('r');
-			if (b[player - 1]->HeavyDrop()) {
-				command = "heavydrop";
+			else {
+				if (!(cin >> command)) {
+					return 0;
+				}
 			}
-		} else if (Substring(command, "down") && Substring("do", command)) {
-			b[player - 1]->Move('d');
-		} else if (Substring(command, "clockwise") && Substring("cl", command)) {
-			b[player - 1]->Rotate('r');
-		} else if (Substring(command, "counterclockwise") && Substring("co", command)) {
-			b[player - 1]->Rotate('l');
-		} else if (command == "hold") {
-			b[player - 1]->HoldBlock();
-			if (!textOnly) {
-				w->updateBoard(player, b[player - 1]->GetBoard(), 18, 11, b[player - 1]->GetScore(), b[player - 1]->GetLevel(), b[player - 1]->GetNext(), b[player - 1]->GetBlind(), b[player - 1]->GetHold());
+
+			if (Substring(command, "left") && Substring("lef", command)) {
+				b[player - 1]->Move('l');
+				if (b[player - 1]->HeavyDrop()) {
+					command = "heavydrop";
+				}
 			}
-		} else if (Substring(command, "drop") && Substring("dr", command)) {
-			if (b[player - 1]->Drop()) {
-				cout << "Please enter special action" << endl;
-				// Special action if multiple lines are cleared
-				while ((cin >> command)) {
-					if (command == "blind") {
-						b[player % 2]->SetBlind();
-						break;
-					} else if (command == "heavy") {
-						b[player % 2]->SetHeavy();
-						break;
-					} else if (command == "force") {
-						char type;
-						cin >> type;
-						if (type == 'I' || type == 'J' || type == 'L' || type == 'Z' || type == 'S' || type == 'O' || type == 'T') {
-							if (!b[player % 2]->ChangeBlock(type)) {
-							cout << "player " << player - 1 << " wins" << endl;
-							}
+			else if (Substring(command, "right") && Substring("ri", command)) {
+				b[player - 1]->Move('r');
+				if (b[player - 1]->HeavyDrop()) {
+					command = "heavydrop";
+				}
+			}
+			else if (Substring(command, "down") && Substring("do", command)) {
+				b[player - 1]->Move('d');
+			}
+			else if (Substring(command, "clockwise") && Substring("cl", command)) {
+				b[player - 1]->Rotate('r');
+			}
+			else if (Substring(command, "counterclockwise") && Substring("co", command)) {
+				b[player - 1]->Rotate('l');
+			}
+			else if (command == "hold") {
+				b[player - 1]->HoldBlock();
+				if (!textOnly) {
+					w->updateBoard(player, b[player - 1]->GetBoard(), 18, 11, b[player - 1]->GetScore(), b[player - 1]->GetLevel(), b[player - 1]->GetNext(), b[player - 1]->GetBlind(), b[player - 1]->GetHold());
+				}
+			}
+			else if (Substring(command, "drop") && Substring("dr", command)) {
+				if (b[player - 1]->Drop()) {
+					cout << "Please enter special action" << endl;
+					// Special action if multiple lines are cleared
+					while ((cin >> command)) {
+						if (command == "blind") {
+							b[player % 2]->SetBlind();
 							break;
-						} else {
-							cout << "Invalid type of blocks to force" << endl;
 						}
-					} else {
-						cout << "Invalid special action" << endl;
+						else if (command == "heavy") {
+							b[player % 2]->SetHeavy();
+							break;
+						}
+						else if (command == "force") {
+							char type;
+							cin >> type;
+							if (type == 'I' || type == 'J' || type == 'L' || type == 'Z' || type == 'S' || type == 'O' || type == 'T') {
+								if (!b[player % 2]->ChangeBlock(type)) {
+									cout << "player " << player - 1 << " wins" << endl;
+								}
+								break;
+							}
+							else {
+								cout << "Invalid type of blocks to force" << endl;
+							}
+						}
+						else {
+							cout << "Invalid special action" << endl;
+						}
 					}
 				}
-			}
 
-			// Generate new blocks and game over
-			if (player == 1) {
-				if (!b[0]->NewBlock()) {
-					cout << "player 2 wins" << endl;
-					cout << "type restart to restart anything else to quit" << endl;
-					break;
+				// Generate new blocks and game over
+				if (player == 1) {
+					if (!b[0]->NewBlock()) {
+						cout << "player 2 wins" << endl;
+						cout << "type restart to restart anything else to quit" << endl;
+						break;
+					}
+					if (!textOnly) {
+						w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
+					}
+					player = 2;
 				}
-				if (!textOnly) {
-					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
+				else if (player == 2) {
+					if (!b[1]->NewBlock()) {
+						cout << "player 1 wins" << endl;
+						cout << "type restart to restart or anything else to quit" << endl;
+						break;
+					}
+					if (!textOnly) {
+						w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
+					}
+					player = 1;
 				}
-				player = 2;
-			} else if (player == 2) {
-				if (!b[1]->NewBlock()) {
-					cout << "player 1 wins" << endl;
-					cout << "type restart to restart or anything else to quit" << endl;
-					break;
-				}
-				if (!textOnly) {
-					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
+			}
+			else if (Substring(command, "levelup") && Substring("levelu", command)) {
+				b[player - 1]->LevelUp();
+			}
+			else if (Substring(command, "leveldown") && Substring("leveld", command)) {
+				b[player - 1]->LevelDown();
+			}
+			else if (Substring(command, "norandom") && Substring("n", command)) {
+
+			}
+			else if (command == "random") {
+				srand(seed);
+			}
+			else if (command == "sequence") {
+
+			}
+			else if (command == "restart") {
+				//Board bbb{1, sequence1, w.get()};
+				//b[0] = nullptr;
+				//b[1] = nullptr;
+				//shared_ptr<Board> newBoard1 = make_shared<Board>(1, sequence1, );
+				b[0] = make_shared<Board>(1, sequence1, w.get());
+				b[1] = make_shared<Board>(2, sequence2, w.get());
+				for (int i = 0; i < defaultlevel; i++) {
+					b[0]->LevelUp();
+					b[1]->LevelUp();
 				}
 				player = 1;
+				b[0]->NewBlock();
+				b[0]->NewBlock();
+				//b1->AddBlock('S');
+				b[1]->NewBlock();
+				b[1]->NewBlock();
+				if (!textOnly) {
+					w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
+					w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
+				}
 			}
-		} else if (Substring(command, "levelup") && Substring("levelu", command)) {
-			b[player - 1]->LevelUp();
-		} else if (Substring(command, "leveldown") && Substring("leveld", command)) {
-			b[player - 1]->LevelDown();
-		} else if (Substring(command, "norandom") && Substring("n", command)) {
-
-		} else if (command == "random") {
-			srand(seed);
-		} else if (command == "sequence") {
-			
-		} else if (command == "restart") {
-			//Board bbb{1, sequence1, w.get()};
-			//b[0] = nullptr;
-			//b[1] = nullptr;
-			//shared_ptr<Board> newBoard1 = make_shared<Board>(1, sequence1, );
-			b[0] = make_shared<Board>(1, sequence1, w.get());
-			b[1] = make_shared<Board>(2, sequence2, w.get());
-			for (int i = 0; i < defaultlevel; i++) {
-				b[0]->LevelUp();
-				b[1]->LevelUp();
+			else if (command == "quit") {
+				return 0;
 			}
-			player = 1;
-			b[0]->NewBlock();
-			b[0]->NewBlock();
-			//b1->AddBlock('S');
-			b[1]->NewBlock();
-			b[1]->NewBlock();
-			if (!textOnly) {
-				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), '0');
-				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), '0');
+			else if (command == "I") {
+				b[player - 1]->ChangeBlock('I');
 			}
-		} else if ( command == "quit") {
-			return 0;
-		} else if (command == "I") {
-			b[player - 1]->ChangeBlock('I');
-		} else if (command == "J") {
-			b[player - 1]->ChangeBlock('J');
-		} else if (command == "L") {
-			b[player - 1]->ChangeBlock('L');
-		} else if (command == "O") {
-			b[player - 1]->ChangeBlock('O');
-		} else if (command == "S") {
-			b[player - 1]->ChangeBlock('S');
-		} else if (command == "Z") {
-			b[player - 1]->ChangeBlock('Z');
-		} else if (command == "T") {
-			b[player - 1]->ChangeBlock('T');
-		} else {
-			cout << "Invalid Command: " << command <<endl;
-			command = "";
+			else if (command == "J") {
+				b[player - 1]->ChangeBlock('J');
+			}
+			else if (command == "L") {
+				b[player - 1]->ChangeBlock('L');
+			}
+			else if (command == "O") {
+				b[player - 1]->ChangeBlock('O');
+			}
+			else if (command == "S") {
+				b[player - 1]->ChangeBlock('S');
+			}
+			else if (command == "Z") {
+				b[player - 1]->ChangeBlock('Z');
+			}
+			else if (command == "T") {
+				b[player - 1]->ChangeBlock('T');
+			}
+			else {
+				cout << "Invalid Command: " << command << endl;
+				command = "";
+			}
 		}
-	}
-	string s;
-	cin >> s;
-	if (s != "restart") {
-		break;
-	}
-	b[0] = make_shared<Board>(1, sequence1, w.get());
-			b[1] = make_shared<Board>(2, sequence2, w.get());
-			for (int i = 0; i < defaultlevel; i++) {
-				b[0]->LevelUp();
-				b[1]->LevelUp();
-			}
-			player = 1;
-			b[0]->NewBlock();
-			b[0]->NewBlock();
-			//b1->AddBlock('S');
-			b[1]->NewBlock();
-			b[1]->NewBlock();
-			if (!textOnly) {
-				w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), b[0]->GetHold());
-				w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), b[1]->GetHold());
-			}
+		string s;
+		cin >> s;
+		if (s != "restart") {
+			break;
+		}
+		b[0] = make_shared<Board>(1, sequence1, w.get());
+		b[1] = make_shared<Board>(2, sequence2, w.get());
+		for (int i = 0; i < defaultlevel; i++) {
+			b[0]->LevelUp();
+			b[1]->LevelUp();
+		}
+		player = 1;
+		b[0]->NewBlock();
+		b[0]->NewBlock();
+		//b1->AddBlock('S');
+		b[1]->NewBlock();
+		b[1]->NewBlock();
+		if (!textOnly) {
+			w->updateBoard(1, b[0]->GetBoard(), 18, 11, b[0]->GetScore(), b[0]->GetLevel(), b[0]->GetNext(), b[0]->GetBlind(), b[0]->GetHold());
+			w->updateBoard(2, b[1]->GetBoard(), 18, 11, b[1]->GetScore(), b[1]->GetLevel(), b[1]->GetNext(), b[1]->GetBlind(), b[1]->GetHold());
+		}
 
 	}
 }
