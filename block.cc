@@ -64,8 +64,6 @@ void Block::RemoveAll() {
 }
 
 bool Block::Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>> board) {
-	std::vector<Cell *> oldCells;
-	std::vector<Cell *> sameCells;
 	std::vector<Cell *> newCells;
 	Cell *current;
 	Cell *next;
@@ -92,36 +90,27 @@ bool Block::Move(char direction, std::vector<std::vector<std::shared_ptr<Cell>>>
 			}
 			next = board[row - 1][col].get();
 		}
-		if (current->GetOwner() != next->GetOwner() && next->GetType() != '.') {
-			return false;
-		}
-		if (current->GetOwner() == next->GetOwner()) {
-			sameCells.push_back(next);
-		} else {
-			newCells.push_back(next);
-		}
-		oldCells.push_back(current);
-	}
-	bool same;
-	for (int i = 0; i < oldCells.size(); i++) {
-		same = false;
-		for (int j = 0; j < sameCells.size(); j++) {
-			if (oldCells[i] == sameCells[j]) {
+		bool same = false;
+		for (int j = 0; j < cells.size(); j++) {
+			if (next == cells[j]) {
 				same = true;
+				newCells.push_back(next);
 				break;
 			}
 		}
 		if (!same) {
-			oldCells[i]->SetType('.');
-			oldCells[i]->SetOwner(nullptr);
+			if (next->GetType() != '.') {
+				return false;
+			} else {
+				newCells.push_back(next);
+			}
 		}
 	}
+
+	RemoveAll();
 	for (int i = 0; i < newCells.size(); i++) {
 		newCells[i]->SetType(type);
 		newCells[i]->SetOwner(this);
-	}
-	for (int i = 0; i < sameCells.size(); i++) {
-		newCells.push_back(sameCells[i]);
 	}
 	cells = newCells;
 	if (direction == 'l') {
