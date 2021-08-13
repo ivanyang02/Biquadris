@@ -336,10 +336,6 @@ int main(int argc, char* argv[]) {
 
 			}
 			else if (command == "restart") {
-				//Board bbb{1, sequence1, w.get()};
-				//b[0] = nullptr;
-				//b[1] = nullptr;
-				//shared_ptr<Board> newBoard1 = make_shared<Board>(1, sequence1, );
 				b[0] = make_shared<Board>(1, sequence1, w.get());
 				b[1] = make_shared<Board>(2, sequence2, w.get());
 				for (int i = 0; i < defaultlevel; i++) {
@@ -349,7 +345,6 @@ int main(int argc, char* argv[]) {
 				player = 1;
 				b[0]->NewBlock();
 				b[0]->NewBlock();
-				//b1->AddBlock('S');
 				b[1]->NewBlock();
 				b[1]->NewBlock();
 				if (!textOnly) {
@@ -400,7 +395,6 @@ int main(int argc, char* argv[]) {
 		player = 1;
 		b[0]->NewBlock();
 		b[0]->NewBlock();
-		//b1->AddBlock('S');
 		b[1]->NewBlock();
 		b[1]->NewBlock();
 		if (!textOnly) {
