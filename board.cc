@@ -123,7 +123,6 @@ void Board::Move(char direction) {
 	if (currentBlock->GetLevel() >= 3) {
 		currentBlock->Move('d', board);
 	}
-	//std::cout << "nerf venti";
 }
 
 void Board::Rotate(char direction) {
@@ -146,7 +145,6 @@ void Board::HoldBlock() {
 		AddBlock(hold, 14, 0);
 		hold = type;
 	}
-	std::cout << hold << std::endl;
 }
 
 bool Board::Drop() {
